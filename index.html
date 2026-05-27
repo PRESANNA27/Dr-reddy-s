@@ -10,7 +10,7 @@
 <meta name="description" content="Best Dental &amp; Eye Hospital in Karaikal, Tamil Nadu. Expert Dental Implants, Root Canal, Smile Designing, Cataract Surgery, Retina Screening, ZEISS Optical. Trusted by thousands of families near Nagapattinam, Mayiladuthurai &amp; Puducherry. 24x7 Emergency Care.">
 
 <!-- ===== ADVANCED SEO META TAGS ===== -->
-<meta name="keywords" content="best dental clinic karaikal, best dentist karaikal, dental implants karaikal, root canal treatment karaikal, best RCT doctor karaikal, root canal retreatment specialist karaikal, endodontist karaikal, best dentist for root canal karaikal, dental implant specialist karaikal, complex endodontic treatment karaikal, emergency dentist karaikal, dental surgery karaikal, minor oral surgery karaikal, major dental surgery karaikal, full mouth rehabilitation karaikal, smile designing karaikal, orthodontist karaikal, invisalign karaikal, pediatric dentist karaikal, teeth cleaning karaikal, wisdom tooth removal karaikal, cosmetic dentistry karaikal, dental emergency karaikal, best eye hospital karaikal, best eye specialist karaikal, cataract surgery karaikal, retina screening karaikal, ZEISS optical karaikal, glaucoma treatment karaikal, eye clinic karaikal, myopia management karaikal, contact lens clinic karaikal, fundus camera karaikal, HFA test karaikal, B-scan ultrasound karaikal, emergency eye care karaikal, dental hospital karaikal, eye care centre karaikal, optical store karaikal, eye testing karaikal, pediatric eye specialist karaikal, near nagapattinam, near mayiladuthurai, near puducherry">
+<meta name="keywords" content="best dental clinic karaikal, best dentist karaikal, dental implants karaikal, root canal treatment karaikal, smile designing karaikal, orthodontist karaikal, invisalign karaikal, pediatric dentist karaikal, teeth cleaning karaikal, wisdom tooth removal karaikal, full mouth rehabilitation karaikal, cosmetic dentistry karaikal, dental emergency karaikal, best eye hospital karaikal, best eye specialist karaikal, cataract surgery karaikal, PHACO surgery karaikal, phacoemulsification karaikal, orbit surgery karaikal, ALCON LEGION karaikal, alcon legion phaco system karaikal, advanced eye surgery karaikal, orbit surgeon karaikal, retina screening karaikal, ZEISS optical karaikal, glaucoma treatment karaikal, eye clinic karaikal, myopia management karaikal, contact lens clinic karaikal, fundus camera karaikal, HFA test karaikal, B-scan ultrasound karaikal, emergency eye care karaikal, dental hospital karaikal, eye care centre karaikal, optical store karaikal, eye testing karaikal, pediatric eye specialist karaikal, Dr Kamalapriya ophthalmologist karaikal, near nagapattinam, near mayiladuthurai, near puducherry">
 <meta name="author" content="Dr. Reddy's Dental &amp; Eye Care Centre, Karaikal">
 <meta name="geo.region" content="IN-PY">
 <meta name="geo.placename" content="Karaikal, Tamil Nadu, India">
@@ -768,6 +768,78 @@ section { padding: 90px 5%; }
 }
 .doctor-card.dental .doctor-badge { background: var(--dental-orange); }
 .doctor-card.eye .doctor-badge { background: var(--eye-teal); }
+
+/* ── Enhanced Doctor Card: Orbit / Premium Accents ── */
+.doctor-card.eye .doctor-orbit-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--eye-teal), var(--blue-deep));
+  color: #fff;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 2px 9px;
+  border-radius: 20px;
+  margin-left: 6px;
+  vertical-align: middle;
+  text-transform: uppercase;
+}
+.doctor-card.eye .doctor-adv-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #0a4d7c, #1e7fc4);
+  color: #fff;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 2px 9px;
+  border-radius: 20px;
+  margin-left: 6px;
+  vertical-align: middle;
+  text-transform: uppercase;
+}
+.doctor-reg-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(0,143,163,0.09);
+  border: 1px solid rgba(0,143,163,0.25);
+  color: var(--eye-teal);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-top: 12px;
+}
+.doctor-specialist-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+}
+.doctor-specialist-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 30px;
+  background: rgba(0,184,217,0.09);
+  color: var(--eye-teal);
+  border: 1px solid rgba(0,184,217,0.22);
+}
+.doctor-specialist-pill.orbit { background: rgba(30,127,196,0.1); color: var(--blue); border-color: rgba(30,127,196,0.25); }
+.doctor-specialist-pill.adv { background: rgba(10,77,124,0.1); color: var(--blue-deep); border-color: rgba(10,77,124,0.25); }
+.doctor-card.eye .doctor-premium-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  pointer-events: none;
+  box-shadow: 0 0 0 0 transparent;
+  transition: box-shadow 0.4s;
+}
+.doctor-card.eye:hover .doctor-premium-glow {
+  box-shadow: 0 0 28px 4px rgba(0,184,217,0.18), 0 0 0 2px rgba(0,184,217,0.12);
+}
 .doctor-info .doctor-name {
   font-family: 'Playfair Display', serif;
   font-size: 1.2rem;
@@ -855,7 +927,349 @@ section { padding: 90px 5%; }
 }
 
 /* DENTAL-ONLY MODE */
-body.mode-dental #eye-services       { display: none !important; }
+body.mode-dental #alcon-legion-section { display: none !important; }
+
+/* ── ALCON LEGION Premium Section ── */
+#alcon-legion-section {
+  background: linear-gradient(145deg, #051a2e 0%, #0a2d4a 35%, #073d5c 60%, #0a4d7c 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 72px 0 80px;
+}
+#alcon-legion-section::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -120px;
+  width: 520px; height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,184,217,0.14) 0%, transparent 70%);
+  pointer-events: none;
+}
+#alcon-legion-section::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; left: -80px;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,115,190,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.alcon-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+@media (max-width: 860px) { .alcon-grid { grid-template-columns: 1fr; gap: 36px; } }
+.alcon-badge-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,184,217,0.12);
+  border: 1px solid rgba(0,184,217,0.3);
+  color: #00d4f5;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 5px 16px;
+  border-radius: 30px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.alcon-main-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+.alcon-main-title .al-accent {
+  background: linear-gradient(90deg, #00d4f5, #0099cc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.alcon-subtitle {
+  font-size: 1.08rem;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 22px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+.alcon-world-class-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #c8960a, #e8b80d);
+  color: #1a0a00;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 6px 18px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  box-shadow: 0 4px 18px rgba(200,150,10,0.35);
+}
+.alcon-phaco-highlight {
+  background: linear-gradient(135deg, rgba(0,143,163,0.25), rgba(0,77,124,0.3));
+  border: 1px solid rgba(0,184,217,0.3);
+  border-left: 4px solid #00d4f5;
+  border-radius: 10px;
+  padding: 16px 22px;
+  margin-bottom: 28px;
+}
+.alcon-phaco-highlight h3 {
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.alcon-phaco-highlight span {
+  color: #00d4f5;
+  font-weight: 800;
+}
+.alcon-phaco-highlight p {
+  color: rgba(255,255,255,0.65);
+  font-size: 0.85rem;
+  margin: 0;
+}
+.alcon-benefits-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+@media (max-width: 480px) { .alcon-benefits-grid { grid-template-columns: 1fr; } }
+.alcon-benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(0,184,217,0.15);
+  border-radius: 10px;
+  padding: 12px 14px;
+  transition: background 0.2s, border-color 0.2s;
+}
+.alcon-benefit-item:hover {
+  background: rgba(0,184,217,0.08);
+  border-color: rgba(0,184,217,0.35);
+}
+.alcon-benefit-check {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00b8d9, #0077be);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.65rem;
+  color: #fff;
+  font-weight: 900;
+  margin-top: 1px;
+}
+.alcon-benefit-text {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.82);
+  font-weight: 500;
+  line-height: 1.45;
+}
+.alcon-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.alcon-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #00b8d9, #0077be);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.88rem;
+  padding: 13px 26px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 6px 24px rgba(0,184,217,0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.alcon-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,184,217,0.45); }
+.alcon-phone-inline {
+  color: rgba(255,255,255,0.75);
+  font-size: 0.84rem;
+  font-weight: 500;
+}
+.alcon-phone-inline strong { color: #00d4f5; }
+/* ── Right Panel ── */
+.alcon-right-panel { position: relative; }
+.alcon-equipment-showcase {
+  background: linear-gradient(145deg, rgba(0,90,140,0.6), rgba(5,25,50,0.8));
+  border: 1px solid rgba(0,184,217,0.25);
+  border-radius: 20px;
+  padding: 32px 28px;
+  position: relative;
+  overflow: hidden;
+}
+.alcon-equipment-showcase::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #00b8d9, #0077be, transparent);
+}
+.alcon-equip-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+.alcon-equip-title {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.alcon-equip-gold-badge {
+  background: linear-gradient(135deg, #c8960a, #e8b80d);
+  color: #1a0800;
+  font-size: 0.62rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+/* SVG Machine Illustration */
+.alcon-machine-visual {
+  margin: 0 auto 24px;
+  display: block;
+  filter: drop-shadow(0 8px 30px rgba(0,184,217,0.3));
+  max-width: 200px;
+}
+.alcon-feature-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.alcon-feature-pill {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  background: rgba(0,184,217,0.12);
+  border: 1px solid rgba(0,184,217,0.22);
+  padding: 5px 13px;
+  border-radius: 20px;
+}
+/* ── Doctor Showcase Inside ALCON ── */
+.alcon-doctor-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(0,184,217,0.2);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.alcon-doctor-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, #00d4f5, #0077be);
+}
+.alcon-doc-avatar {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00b8d9, #0077be);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.alcon-doc-info { flex: 1; }
+.alcon-doc-name {
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.alcon-doc-degree {
+  color: rgba(255,255,255,0.55);
+  font-size: 0.72rem;
+  margin-bottom: 4px;
+}
+.alcon-doc-role {
+  color: #00d4f5;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.alcon-doc-reg {
+  color: rgba(255,255,255,0.4);
+  font-size: 0.68rem;
+  margin-top: 3px;
+}
+/* ── Appointment Info Bar ── */
+.alcon-appointment-bar {
+  background: rgba(0,184,217,0.08);
+  border: 1px solid rgba(0,184,217,0.2);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 480px) { .alcon-appointment-bar { grid-template-columns: 1fr; } }
+.alcon-appt-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.alcon-appt-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: rgba(0,184,217,0.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+.alcon-appt-label { color: rgba(255,255,255,0.5); font-size: 0.68rem; }
+.alcon-appt-value { color: #fff; font-size: 0.8rem; font-weight: 600; }
+/* ── Stats Row ── */
+.alcon-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 36px;
+}
+@media (max-width: 600px) { .alcon-stats-row { grid-template-columns: 1fr 1fr; } }
+.alcon-stat-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(0,184,217,0.15);
+  border-radius: 12px;
+  padding: 18px 14px;
+  text-align: center;
+}
+.alcon-stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #00d4f5;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.alcon-stat-label {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.55);
+  font-weight: 500;
+}
+
+
 body.mode-dental #eye-doctor         { display: none !important; }
 body.mode-dental .marquee-item.eye-item { display: none !important; }
 body.mode-dental .service-pill.eye-pill { display: none !important; }
@@ -3018,7 +3432,7 @@ footer {
       "@type": "Physician",
       "@id": "https://dreddysdentaleyecare.com/#dr-reddy-dental",
       "name": "Dr. Reddy (Dental Specialist)",
-      "description": "Best Dentist in Karaikal with 30+ years of experience. Specialist in dental implants, root canal treatment, root canal retreatment, endodontics, minor and major dental surgery, emergency dental care, full mouth rehabilitation, and cosmetic dentistry. FICOI Fellowship holder.",
+      "description": "Best Dentist in Karaikal with 30+ years of experience. Specialist in dental implants, root canal treatment, smile designing, and cosmetic dentistry. FICOI Fellowship holder.",
       "worksFor": {"@id": "https://dreddysdentaleyecare.com/#organization"},
       "medicalSpecialty": "Dentistry",
       "hasCredential": "FICOI Fellowship"
@@ -3027,7 +3441,7 @@ footer {
       "@type": "Physician",
       "@id": "https://dreddysdentaleyecare.com/#dr-reddy-eye",
       "name": "Dr. Reddy (Ophthalmologist)",
-      "description": "Best Eye Specialist in Karaikal with 23+ years of expertise. Specialist in cataract surgery, retina screening, glaucoma treatment, ZEISS optical dispensing, and emergency eye care.",
+      "description": "Best Eye Specialist in Karaikal. Dr. G. V. Kamalapriya Sudhakar Reddy (M.B.B.S., D.O., DNB) — Consultant Ophthalmic &amp; Orbit Surgeon. Former Medical Officer, Aravind Eye Hospital, Puducherry. Specialist in Cataract Surgery with ALCON LEGION PHACO system, Orbit Surgery, and Advanced Eye Surgeries. Reg. No: 64058.",
       "worksFor": {"@id": "https://dreddysdentaleyecare.com/#organization"},
       "medicalSpecialty": "Ophthalmology"
     },
@@ -3064,7 +3478,7 @@ footer {
           "name": "Who is the best eye specialist in Karaikal?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Dr. G. V. Kamalapriya Sudhakar Reddy (MBBS, DO, DNB) is the best eye specialist in Karaikal with 25+ years of experience. She is trained at Aravind Eye Hospital, Puducherry and Narayana Nethralaya, Bangalore."
+            "text": "Dr. G. V. Kamalapriya Sudhakar Reddy (M.B.B.S., D.O., DNB) is the best eye specialist and orbit surgeon in Karaikal with extensive experience. She is a former Medical Officer at Aravind Eye Hospital, Puducherry. Specialist in Cataract, Orbit &amp; Advanced Eye Surgeries. Reg. No: 64058. Now performing World-Class PHACO Surgery in Karaikal using the ALCON LEGION Advanced Cataract Surgery System."
           }
         },
         {
@@ -3072,7 +3486,7 @@ footer {
           "name": "Where can I get cataract surgery in Karaikal?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Dr. Reddy's Eye Care Centre in Karaikal offers advanced phacoemulsification cataract surgery by Dr. Kamalapriya, who completed her Phaco Fellowship at Narayana Nethralaya, Bangalore. Trusted by families from Karaikal, Nagapattinam, Mayiladuthurai and Puducherry."
+            "text": "Dr. Reddy's Eye Care Centre in Karaikal offers advanced phacoemulsification cataract surgery using the ALCON LEGION Premium PHACO System — by Dr. G. V. Kamalapriya Sudhakar Reddy (M.B.B.S., D.O., DNB), Consultant Ophthalmic &amp; Orbit Surgeon, former Medical Officer at Aravind Eye Hospital, Puducherry. World-Class PHACO Surgery now available in Karaikal. Trusted by families from Karaikal, Nagapattinam, Mayiladuthurai and Puducherry."
           }
         },
         {
@@ -3112,7 +3526,7 @@ footer {
           "name": "Which is the best dental implant clinic near Nagapattinam?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Dr. Reddy's Dental & Eye Care Centre in Karaikal, Tamil Nadu is the leading dental implant clinic serving patients from Nagapattinam and surrounding districts. Dr. Sudhakar Reddy holds a FICOI Fellowship (Malaysia) in dental implantology, ensuring internationally benchmarked implant care."
+            "text": "Dr. Reddy's Dental & Eye Care Centre in Karaikal, Tamil Nadu is the leading dental implant clinic serving patients from Nagapattinam and surrounding districts. Dr. Sudhakar Reddy holds a FICOI Fellowship (Malaysia) and uses Osstem implants."
           }
         },
         {
@@ -3136,15 +3550,7 @@ footer {
           "name": "How long does root canal treatment take?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Root canal treatment at Dr. Reddy's Karaikal typically requires 2–3 visits: diagnosis and first cleaning (45–60 minutes), canal preparation and filling (60–90 minutes), and crown placement. Modern RCT is completely painless with local anaesthesia. Dr. M. V. Sudhakar Reddy also specialises in Root Canal Retreatment and complex endodontic cases including calcified canals."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Who is the best Root Canal Treatment doctor in Karaikal?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Dr. M. V. Sudhakar Reddy (BDS, FICOI) is widely regarded as the best RCT doctor in Karaikal. With over 30 years of experience, he regularly performs Root Canal Treatment and Root Canal Retreatment for a large number of patients, including complex endodontic cases with calcified or curved canals, using digital RVG X-ray guidance for precise and painless treatment."
+            "text": "Root canal treatment at Dr. Reddy's Karaikal typically requires 2–3 visits: diagnosis and first cleaning (45–60 minutes), canal preparation and filling (60–90 minutes), and crown placement. Modern RCT is completely painless with local anaesthesia."
           }
         },
         {
@@ -3499,7 +3905,7 @@ footer {
           <div class="doctor-info">
             <div class="doctor-name">Dr. M. V. Sudhakar Reddy</div>
             <div class="doctor-degree">BDS, FICOI</div>
-            <div class="doctor-role">Founder & Chief Dental Surgeon<br>Dental Implantologist · Endodontist · RCT Specialist</div>
+            <div class="doctor-role">Founder & Chief Dental Surgeon<br>Experienced Dental Implantologist</div>
           </div>
         </div>
         <div class="doctor-card-body">
@@ -3507,17 +3913,18 @@ footer {
           <div class="doctor-highlights">
             <div class="doctor-highlight">Founder of Dr. Reddy's Dental & Eye Care Centre</div>
             <div class="doctor-highlight">Fellowship in Implantology — Malaysia (FICOI)</div>
-            <div class="doctor-highlight">Advanced Root Canal Treatment & Retreatment Specialist</div>
-            <div class="doctor-highlight">Expert in Minor & Major Oral Surgical Procedures</div>
-            <div class="doctor-highlight">Emergency Dental Care & Full Mouth Rehabilitation</div>
+            <div class="doctor-highlight">Specialist in Osstem World-Renowned Implants</div>
+            <div class="doctor-highlight">Expert in Advanced Esthetic Dentistry & Smile Design</div>
+            <div class="doctor-highlight">Digital Impression with Intra Oral Scanners</div>
           </div>
           <div style="margin-top:18px;">
             <button class="service-card-btn" onclick="event.stopPropagation();openDoctorProfile('sudhakar')" style="width:100%;justify-content:center;background:rgba(232,108,44,0.1);color:var(--dental-orange);">👤 View Full Profile →</button>
           </div>
         </div>
       </div>
-      <!-- Dr. Kamalapriya -->
-      <div class="doctor-card eye fade-up" id="eye-doctor" onclick="openDoctorProfile('kamalapriya')" style="cursor:pointer;" title="Click to view full profile">
+      <!-- Dr. Kamalapriya — Enhanced Premium Card -->
+      <div class="doctor-card eye fade-up" id="eye-doctor" onclick="openDoctorProfile('kamalapriya')" style="cursor:pointer;position:relative;" title="Click to view full profile">
+        <div class="doctor-premium-glow"></div>
         <div class="doctor-card-stripe"></div>
         <div class="doctor-card-header">
           <div class="doctor-avatar-wrap">
@@ -3526,19 +3933,25 @@ footer {
           </div>
           <div class="doctor-info">
             <div class="doctor-name">Dr. G. V. Kamalapriya Sudhakar Reddy</div>
-            <div class="doctor-degree">MBBS, DO, DNB</div>
-            <div class="doctor-role">Consultant Ophthalmic Surgeon</div>
+            <div class="doctor-degree">M.B.B.S., D.O., DNB</div>
+            <div class="doctor-role">Consultant Ophthalmic &amp; <span class="doctor-orbit-badge">Orbit Surgeon</span></div>
           </div>
         </div>
         <div class="doctor-card-body">
-          <div class="doctor-exp-badge">⭐ 23+ Years Experience</div>
+          <div class="doctor-exp-badge">⭐ Expert Ophthalmologist — Karaikal</div>
           <div class="doctor-highlights">
-            <div class="doctor-highlight">Worked at Aravind Eye Hospital, Puducherry</div>
-            <div class="doctor-highlight">Worked at Lions Eye Hospital, Vandampalai, Tiruvarur</div>
-            <div class="doctor-highlight">Phaco Fellowship at Narayana Nethralaya, Bangalore</div>
-            <div class="doctor-highlight">Expert in Phacoemulsification (Laser Cataract Surgery)</div>
-            <div class="doctor-highlight">Specialist in Anterior Segment & Corneal Surgery</div>
+            <div class="doctor-highlight">Former Medical Officer, Aravind Eye Hospital, Puducherry</div>
+            <div class="doctor-highlight">Consultant Ophthalmic &amp; <span class="doctor-orbit-badge">Orbit Surgeon</span></div>
+            <div class="doctor-highlight">Specialist in Cataract, Orbit &amp; <span class="doctor-adv-badge">Advanced Eye Surgeries</span></div>
+            <div class="doctor-highlight">Expert in World-Class PHACO Surgery — Alcon Legion System</div>
+            <div class="doctor-highlight">Advanced Orbit &amp; Anterior Segment Surgery</div>
           </div>
+          <div class="doctor-specialist-pills">
+            <span class="doctor-specialist-pill">👁 Cataract Surgery</span>
+            <span class="doctor-specialist-pill orbit">🎯 Orbit Surgery</span>
+            <span class="doctor-specialist-pill adv">✦ Advanced Eye Surgeries</span>
+          </div>
+          <div class="doctor-reg-badge">🏥 Reg. No: 64058 &nbsp;|&nbsp; MCI Registered</div>
           <div style="margin-top:18px;">
             <button class="service-card-btn eye-btn" onclick="event.stopPropagation();openDoctorProfile('kamalapriya')" style="width:100%;justify-content:center;background:rgba(0,184,217,0.08);color:var(--eye-teal);">👤 View Full Profile →</button>
           </div>
@@ -3703,13 +4116,13 @@ footer {
   <div class="max-container">
     <div style="margin-bottom:48px;" class="fade-up">
       <div class="section-tag eye">👁 Eye Care Department</div>
-      <h2 class="section-title">Comprehensive Eye Care Services<br><small style="font-size:0.55em;font-weight:400;opacity:0.75;">Best Eye Hospital in Karaikal — ZEISS Optical &amp; Advanced Diagnostics</small></h2>
-      <p class="section-desc">State-of-the-art ophthalmic care by Dr. G. V. Kamalapriya — trained at Aravind Eye Hospital and Narayana Nethralaya.</p>
+      <h2 class="section-title">Comprehensive Eye Care Services<br><small style="font-size:0.55em;font-weight:400;opacity:0.75;">Best Eye Hospital in Karaikal — ALCON LEGION PHACO Surgery &amp; Advanced Orbit Surgery</small></h2>
+      <p class="section-desc">World-class ophthalmic care by Dr. G. V. Kamalapriya Sudhakar Reddy (M.B.B.S., D.O., DNB) — Consultant Ophthalmic &amp; Orbit Surgeon, former Medical Officer at Aravind Eye Hospital, Puducherry. Featuring the <strong>ALCON LEGION Advanced PHACO System</strong> for cataract and orbit surgery.</p>
     </div>
     <div class="services-grid stagger-children">
 
       <div class="service-card eye-card-s fade-up">
-        <div class="service-card-img"><img src="images/services/cataract-surgery-technology-karaikal.webp" alt="Cataract Surgery Karaikal – Surgeon with Alcon Phacoemulsification System at Dr. Reddy's Eye Care" loading="lazy" width="700" height="394"></div>
+        <div class="service-card-img"><img src="images/services/cataract-alcon-legion-surgery-karaikal.webp" alt="Cataract Surgery Karaikal – Alcon Legion World-Class Phaco Surgery System at Dr. Reddy's Eye Care" loading="lazy" width="700" height="394"></div>
         <div class="service-card-body">
           <h3 class="service-card-title">Cataract Surgery Karaikal</h3>
           <p class="service-card-desc">Advanced Phacoemulsification (laser cataract) with premium IOL options. Same-day procedure with rapid visual recovery.</p>
@@ -3719,7 +4132,7 @@ footer {
       </div>
 
       <div class="service-card eye-card-s fade-up">
-        <div class="service-card-img"><img src="images/services/glaucoma-hfa-diagnostic-karaikal.webp" alt="Glaucoma Screening Karaikal – Ophthalmic HFA Diagnostic Equipment at Dr. Reddy's Eye Hospital" loading="lazy" width="700" height="394"></div>
+        <div class="service-card-img"><img src="images/services/glaucoma-slit-lamp-iop-screening-karaikal.webp" alt="Glaucoma Screening Karaikal – Advanced Slit Lamp IOP & Digital Eye Imaging at Dr. Reddy's Eye Hospital" loading="lazy" width="700" height="394"></div>
         <div class="service-card-body">
           <h3 class="service-card-title">Glaucoma Screening & Laser</h3>
           <p class="service-card-desc">YAG & Glaucoma laser treatments. Early detection and management to protect your vision permanently.</p>
@@ -3729,7 +4142,7 @@ footer {
       </div>
 
       <div class="service-card eye-card-s fade-up">
-        <div class="service-card-img"><img src="images/services/retina-imaging-advanced-karaikal.webp" alt="Retina Imaging & Diabetic Eye Screening Karaikal – Advanced Alcon Diagnostic System at Dr. Reddy's" loading="lazy" width="700" height="394"></div>
+        <div class="service-card-img"><img src="images/services/retina-fundus-screening-report-karaikal.webp" alt="Retina Imaging & Diabetic Eye Screening Karaikal – Actual Fundus Screening Report at Dr. Reddy's" loading="lazy" width="700" height="394"></div>
         <div class="service-card-body">
           <h3 class="service-card-title">Retina Imaging & Diabetic Screening</h3>
           <p class="service-card-desc">Advanced retinal imaging, diabetic retinopathy screening, ROP screening & uveal disorders management.</p>
@@ -3749,7 +4162,7 @@ footer {
       </div>
 
       <div class="service-card eye-card-s fade-up zeiss-card">
-        <div class="service-card-img"><img src="images/services/zeiss-optical-myopia-karaikal.webp" alt="ZEISS Optical Myopia Management Karaikal – Premium ZEISS Lens Display at Dr. Reddy's" loading="lazy" width="700" height="394"></div>
+        <div class="service-card-img"><img src="images/services/myopia-optical-dispensing-slit-lamp-karaikal.webp" alt="Myopia & Optical Dispensing Karaikal – Digital Slit Lamp Eye Diagnostics at Dr. Reddy's Eye Care" loading="lazy" width="700" height="394"></div>
         <div class="zeiss-premium-badge">★ ZEISS Technology</div>
         <div class="service-card-body">
           <h3 class="service-card-title">Myopia & Optical Dispensing</h3>
@@ -3765,7 +4178,7 @@ footer {
       </div>
 
       <div class="service-card eye-card-s fade-up">
-        <div class="service-card-img"><img src="images/services/amblyopia-squint-eye-exam-karaikal.webp" alt="Amblyopia & Squint Management Karaikal – Eye Examination Room at Dr. Reddy's Eye Care" loading="lazy" width="700" height="394"></div>
+        <div class="service-card-img"><img src="images/services/amblyopia-squint-fundus-exam-karaikal.webp" alt="Amblyopia & Squint Management Karaikal – Fundus & Retinal Examination at Dr. Reddy's Eye Care" loading="lazy" width="700" height="394"></div>
         <div class="service-card-body">
           <h3 class="service-card-title">Amblyopia & Squint Management</h3>
           <p class="service-card-desc">Lazy eye treatment using Orthoptek. Complete squint management, preschool eye screening and ROP care.</p>
@@ -3785,7 +4198,7 @@ footer {
       </div>
 
       <div class="service-card eye-card-s fade-up">
-        <div class="service-card-img"><img src="images/services/eye-donation-examination-karaikal.webp" alt="Eye Donation Centre Karaikal – 24x7 Eye Collection & Examination at Dr. Reddy's Eye Care" loading="lazy" width="700" height="394"></div>
+        <div class="service-card-img"><img src="images/services/eye-donation-ophthalmic-care-karaikal.webp" alt="Eye Donation & Collection Centre Karaikal – 24x7 Ophthalmology Support at Dr. Reddy's Eye Hospital" loading="lazy" width="700" height="394"></div>
         <div class="service-card-body">
           <h3 class="service-card-title">Eye Donation & Collection</h3>
           <p class="service-card-desc">24x7 Eye Collection Centre & Eye Donation Desk. Noble service to restore vision to the visually impaired.</p>
@@ -3828,6 +4241,244 @@ footer {
       </div>
     </div>
 
+  </div>
+</section>
+
+<!-- ============================
+     ALCON LEGION — PREMIUM PHACO SURGERY SECTION
+============================ -->
+<section id="alcon-legion-section" aria-label="ALCON LEGION PHACO Surgery Cataract Karaikal Orbit Surgery">
+  <div class="max-container">
+
+    <!-- Top Stats Row -->
+    <div class="alcon-stats-row fade-up">
+      <div class="alcon-stat-card">
+        <div class="alcon-stat-number">ALCON</div>
+        <div class="alcon-stat-label">World-Class Equipment</div>
+      </div>
+      <div class="alcon-stat-card">
+        <div class="alcon-stat-number">LEGION</div>
+        <div class="alcon-stat-label">Premium PHACO System</div>
+      </div>
+      <div class="alcon-stat-card">
+        <div class="alcon-stat-number">99%</div>
+        <div class="alcon-stat-label">Cataract Surgery Success Rate</div>
+      </div>
+    </div>
+
+    <div class="alcon-grid" style="margin-top:52px;">
+
+      <!-- LEFT: Main Content -->
+      <div>
+        <div class="alcon-badge-top fade-up">
+          <span>🌟</span>
+          <span>Now Available in Karaikal</span>
+        </div>
+
+        <h2 class="alcon-main-title fade-up">
+          <span class="al-accent">ALCON LEGION</span><br>
+          Advanced Cataract<br>Surgery System
+        </h2>
+
+        <p class="alcon-subtitle fade-up">
+          World-class <strong style="color:#fff;">PHACO Surgery in Karaikal</strong> — now available at Dr. Reddy's Superspeciality Dental &amp; Eye Care Centre, delivering internationally recognised surgical precision to our patients.
+        </p>
+
+        <div class="alcon-world-class-badge fade-up">
+          ★ WORLD-CLASS EQUIPMENT
+        </div>
+
+        <div class="alcon-phaco-highlight fade-up">
+          <h3>🎯 World-Class <span>PHACO Surgery</span> in Karaikal</h3>
+          <p>Phacoemulsification with the Alcon Legion system — precise, safe, and faster visual recovery for cataract patients across Karaikal, Nagapattinam &amp; Puducherry.</p>
+        </div>
+
+        <!-- Benefits Grid -->
+        <h3 style="color:rgba(255,255,255,0.7);font-size:0.8rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:14px;" class="fade-up">Key Benefits</h3>
+        <div class="alcon-benefits-grid fade-up">
+          <div class="alcon-benefit-item">
+            <div class="alcon-benefit-check">✓</div>
+            <div class="alcon-benefit-text">Advanced, Safer &amp; Smoother Cataract Surgery</div>
+          </div>
+          <div class="alcon-benefit-item">
+            <div class="alcon-benefit-check">✓</div>
+            <div class="alcon-benefit-text">World-Class Precision &amp; Accuracy</div>
+          </div>
+          <div class="alcon-benefit-item">
+            <div class="alcon-benefit-check">✓</div>
+            <div class="alcon-benefit-text">Minimal Tissue Damage</div>
+          </div>
+          <div class="alcon-benefit-item">
+            <div class="alcon-benefit-check">✓</div>
+            <div class="alcon-benefit-text">Superior Outcomes</div>
+          </div>
+          <div class="alcon-benefit-item">
+            <div class="alcon-benefit-check">✓</div>
+            <div class="alcon-benefit-text">Faster Recovery Time</div>
+          </div>
+          <div class="alcon-benefit-item">
+            <div class="alcon-benefit-check">✓</div>
+            <div class="alcon-benefit-text">Advanced Orbit &amp; Cataract Support</div>
+          </div>
+        </div>
+
+        <!-- CTA Row -->
+        <div class="alcon-cta-row fade-up">
+          <a href="tel:+919894611909" class="alcon-cta-btn">
+            📞 Book Appointment
+          </a>
+          <div class="alcon-phone-inline">
+            <strong>98946 11909</strong> / <strong>93610 88606</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Equipment Showcase + Doctor Card -->
+      <div class="alcon-right-panel">
+
+        <div class="alcon-equipment-showcase fade-up">
+          <div class="alcon-equip-header">
+            <div class="alcon-equip-title">Alcon Legion Premium PHACO System</div>
+            <div class="alcon-equip-gold-badge">★ World-Class</div>
+          </div>
+
+          <!-- Stylised Machine SVG Illustration -->
+          <svg class="alcon-machine-visual" viewBox="0 0 180 240" xmlns="http://www.w3.org/2000/svg" aria-label="ALCON LEGION Phacoemulsification Cataract Surgery Machine illustration" role="img">
+            <!-- Base/Wheels -->
+            <ellipse cx="90" cy="235" rx="45" ry="6" fill="rgba(0,184,217,0.15)"/>
+            <circle cx="65" cy="228" r="8" fill="#0a2d4a" stroke="#00b8d9" stroke-width="1.5"/>
+            <circle cx="65" cy="228" r="3" fill="#00b8d9"/>
+            <circle cx="115" cy="228" r="8" fill="#0a2d4a" stroke="#00b8d9" stroke-width="1.5"/>
+            <circle cx="115" cy="228" r="3" fill="#00b8d9"/>
+            <!-- Main Body -->
+            <rect x="50" y="90" width="80" height="130" rx="8" fill="#0d3555" stroke="#1e6090" stroke-width="1.5"/>
+            <!-- Screen -->
+            <rect x="58" y="100" width="64" height="50" rx="5" fill="#051520" stroke="#00b8d9" stroke-width="1"/>
+            <!-- Screen content lines -->
+            <line x1="64" y1="112" x2="116" y2="112" stroke="#00d4f5" stroke-width="1" opacity="0.6"/>
+            <line x1="64" y1="120" x2="100" y2="120" stroke="#0099cc" stroke-width="1" opacity="0.4"/>
+            <line x1="64" y1="128" x2="110" y2="128" stroke="#0099cc" stroke-width="1" opacity="0.4"/>
+            <circle cx="104" cy="116" r="6" fill="none" stroke="#00d4f5" stroke-width="1.5"/>
+            <circle cx="104" cy="116" r="3" fill="rgba(0,212,245,0.3)"/>
+            <!-- Control Panel -->
+            <rect x="58" y="158" width="64" height="30" rx="4" fill="#082540" stroke="#1e6090" stroke-width="1"/>
+            <circle cx="70" cy="173" r="5" fill="#00b8d9" opacity="0.8"/>
+            <circle cx="84" cy="173" r="5" fill="#0066aa" opacity="0.7"/>
+            <circle cx="98" cy="173" r="5" fill="#004488" opacity="0.6"/>
+            <circle cx="112" cy="173" r="5" fill="#00b8d9" opacity="0.5"/>
+            <!-- IV Bag Pole -->
+            <line x1="48" y1="90" x2="48" y2="20" stroke="#1e6090" stroke-width="2.5"/>
+            <line x1="38" y1="20" x2="62" y2="20" stroke="#1e6090" stroke-width="2"/>
+            <!-- IV Bag -->
+            <rect x="38" y="24" width="22" height="34" rx="5" fill="#051520" stroke="#00b8d9" stroke-width="1"/>
+            <text x="49" y="35" text-anchor="middle" fill="#00d4f5" font-size="5" font-weight="700">ALCON</text>
+            <text x="49" y="45" text-anchor="middle" fill="#0099cc" font-size="4">BSS Plus</text>
+            <!-- Tube from bag -->
+            <path d="M49 58 Q49 80 55 88" stroke="#00b8d9" stroke-width="1" fill="none" opacity="0.7"/>
+            <!-- Arm/handpiece holder -->
+            <rect x="130" y="100" width="8" height="60" rx="3" fill="#0d3555" stroke="#1e6090" stroke-width="1"/>
+            <rect x="126" y="148" width="16" height="10" rx="3" fill="#082540" stroke="#00b8d9" stroke-width="1"/>
+            <!-- Handpiece -->
+            <line x1="134" y1="160" x2="148" y2="190" stroke="#00b8d9" stroke-width="2.5"/>
+            <ellipse cx="149" cy="193" rx="4" ry="6" fill="#00b8d9" opacity="0.7"/>
+            <!-- Glow effect -->
+            <circle cx="90" cy="155" r="55" fill="radial-gradient(circle, rgba(0,184,217,0.1) 0%, transparent 70%)" opacity="0.3"/>
+          </svg>
+
+          <div class="alcon-feature-pills">
+            <span class="alcon-feature-pill">PHACO System</span>
+            <span class="alcon-feature-pill">Orbital Surgery</span>
+            <span class="alcon-feature-pill">BSS Plus</span>
+            <span class="alcon-feature-pill">Precision Fluidics</span>
+          </div>
+
+          <!-- Doctor Card Inside Equipment Box -->
+          <div class="alcon-doctor-card">
+            <div class="alcon-doc-avatar">K</div>
+            <div class="alcon-doc-info">
+              <div class="alcon-doc-name">Dr. G. V. Kamalapriya Sudhakar Reddy</div>
+              <div class="alcon-doc-degree">M.B.B.S., D.O., DNB</div>
+              <div class="alcon-doc-role">Consultant Ophthalmic &amp; Orbit Surgeon</div>
+              <div class="alcon-doc-reg">Former Medical Officer, Aravind Eye Hospital, Puducherry · Reg. No: 64058</div>
+            </div>
+          </div>
+
+          <!-- Appointment Bar -->
+          <div class="alcon-appointment-bar">
+            <div class="alcon-appt-item">
+              <div class="alcon-appt-icon">📞</div>
+              <div>
+                <div class="alcon-appt-label">For Appointment</div>
+                <div class="alcon-appt-value">98946 11909</div>
+                <div class="alcon-appt-value">93610 88606</div>
+              </div>
+            </div>
+            <div class="alcon-appt-item">
+              <div class="alcon-appt-icon">🕐</div>
+              <div>
+                <div class="alcon-appt-label">Timings</div>
+                <div class="alcon-appt-value">Mon – Sat</div>
+                <div class="alcon-appt-value">4 PM to 9 PM</div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /.alcon-equipment-showcase -->
+
+        <!-- Location Badge -->
+        <div style="text-align:center;margin-top:18px;">
+          <span style="color:rgba(255,255,255,0.45);font-size:0.8rem;">📍 Proudly Serving <strong style="color:#00d4f5;">Karaikal</strong> &amp; surrounding regions</span>
+        </div>
+
+      </div><!-- /.alcon-right-panel -->
+    </div><!-- /.alcon-grid -->
+
+    <!-- Bottom Feature Strip -->
+    <div style="margin-top:48px;border-top:1px solid rgba(0,184,217,0.15);padding-top:36px;" class="fade-up">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:40px;height:40px;border-radius:10px;background:rgba(0,184,217,0.12);border:1px solid rgba(0,184,217,0.25);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">⚙️</div>
+          <div>
+            <div style="color:#fff;font-size:0.82rem;font-weight:700;">Alcon Legion Premium</div>
+            <div style="color:rgba(255,255,255,0.5);font-size:0.72rem;">PHACO System</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:40px;height:40px;border-radius:10px;background:rgba(0,184,217,0.12);border:1px solid rgba(0,184,217,0.25);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">👁</div>
+          <div>
+            <div style="color:#fff;font-size:0.82rem;font-weight:700;">Advanced Cataract</div>
+            <div style="color:rgba(255,255,255,0.5);font-size:0.72rem;">&amp; Orbit Surgery Support</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:40px;height:40px;border-radius:10px;background:rgba(0,184,217,0.12);border:1px solid rgba(0,184,217,0.25);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">🎯</div>
+          <div>
+            <div style="color:#fff;font-size:0.82rem;font-weight:700;">Precision-Based</div>
+            <div style="color:rgba(255,255,255,0.5);font-size:0.72rem;">Eye Surgical Technology</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:40px;height:40px;border-radius:10px;background:rgba(0,184,217,0.12);border:1px solid rgba(0,184,217,0.25);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">🛡️</div>
+          <div>
+            <div style="color:#fff;font-size:0.82rem;font-weight:700;">Safer, Faster &amp;</div>
+            <div style="color:rgba(255,255,255,0.5);font-size:0.72rem;">Smoother Recovery</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:40px;height:40px;border-radius:10px;background:rgba(0,184,217,0.12);border:1px solid rgba(0,184,217,0.25);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">🏆</div>
+          <div>
+            <div style="color:#fff;font-size:0.82rem;font-weight:700;">Microsurgical Excellence</div>
+            <div style="color:rgba(255,255,255,0.5);font-size:0.72rem;">in Karaikal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.max-container -->
+
+  <!-- Hidden SEO text for structured data -->
+  <div style="display:none;" aria-hidden="true">
+    ALCON LEGION Karaikal — World-Class PHACO Surgery Karaikal — Cataract Surgery Karaikal — Orbit Surgery Karaikal — Advanced Eye Hospital Karaikal — Eye Specialist Karaikal — PHACO Surgery Karaikal — Phacoemulsification Karaikal — Dr. G. V. Kamalapriya Sudhakar Reddy MBBS DO DNB — Orbit Surgeon Karaikal
   </div>
 </section>
 
@@ -4155,6 +4806,39 @@ footer {
         <div class="gallery-overlay"><div class="gallery-label">Cataract Procedure</div></div>
       </div>
 
+      <!-- ── New: Retina Diagnostics ── -->
+      <div class="gallery-item" data-cat="eyecare">
+        <img src="images/gallery/opd-slit-lamp-digital-imaging-karaikal.webp"
+             alt="Advanced OPD Slit Lamp with Digital Eye Imaging System at Dr. Reddy's Eye Care Karaikal"
+             loading="lazy" width="1600" height="1200">
+        <div class="gallery-cat-badge">Eye Care</div>
+        <div class="gallery-overlay"><div class="gallery-label">👁 OPD Slit Lamp & Digital Imaging</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="eyecare">
+        <img src="images/gallery/retina-fundus-camera-sun-pharma-karaikal.webp"
+             alt="Retina Fundus-on-Phone Camera at Dr. Reddy's Eye Care Karaikal – SUN Pharma FOP Device"
+             loading="lazy" width="1200" height="1600">
+        <div class="gallery-cat-badge">Eye Care</div>
+        <div class="gallery-overlay"><div class="gallery-label">Retina Fundus Camera (FOP)</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="eyecare">
+        <img src="images/gallery/fundus-retina-screening-report-karaikal.webp"
+             alt="Real Fundus Retina Screening Report from Dr. Reddy's Dental & Eye Hospital Karaikal"
+             loading="lazy" width="1455" height="1600">
+        <div class="gallery-cat-badge">Eye Care</div>
+        <div class="gallery-overlay"><div class="gallery-label">🔬 Fundus Retina Screening Report</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="equipment">
+        <img src="images/gallery/alcon-legion-world-class-equipment-karaikal.webp"
+             alt="ALCON LEGION World-Class Cataract Surgery Equipment at Dr. Reddy's Eye Care Karaikal"
+             loading="lazy" width="1024" height="1536">
+        <div class="gallery-cat-badge">Equipment</div>
+        <div class="gallery-overlay"><div class="gallery-label">⚙️ Alcon Legion – World-Class Phaco</div></div>
+      </div>
+
     </div>
 
     <script>
@@ -4468,10 +5152,10 @@ footer {
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:20px;">
         <div>
           <p style="font-size:0.88rem;color:var(--text);line-height:1.75;margin-bottom:14px;">Dr. Reddy's Dental &amp; Eye Care Centre stands apart as the only super speciality centre in Karaikal offering both advanced dentistry and ophthalmology under one roof. With 30+ years of dental expertise and 25+ years of ophthalmic excellence, our doctors bring international training and genuine compassion to every patient.</p>
-          <p style="font-size:0.88rem;color:var(--text);line-height:1.75;">Our dental department, led by Dr. M. V. Sudhakar Reddy (BDS, FICOI), delivers world-class dental implants, advanced Root Canal Treatment and Root Canal Retreatment with digital RVG guidance, minor and major oral surgical procedures, emergency dental care, and cosmetic smile transformations through esthetic dentistry. Dr. Reddy regularly treats complex endodontic cases — including calcified canals and failed RCT — helping patients preserve their natural teeth with precision and long-term success. Every procedure meets international sterilization standards.</p>
+          <p style="font-size:0.88rem;color:var(--text);line-height:1.75;">Our dental department, led by Dr. M. V. Sudhakar Reddy (BDS, FICOI), delivers world-class dental implants using Osstem systems, pain-free root canal treatment with digital RVG guidance, and cosmetic smile transformations through advanced esthetic dentistry. Every procedure meets international sterilization standards.</p>
         </div>
         <div>
-          <p style="font-size:0.88rem;color:var(--text);line-height:1.75;margin-bottom:14px;">Our ophthalmology department, led by Dr. G. V. Kamalapriya (MBBS, DO, DNB), brings Aravind and Narayana Nethralaya-trained expertise to Karaikal. From phacoemulsification cataract surgery to retinal screening and ZEISS optical dispensing — every service reflects the highest clinical standards.</p>
+          <p style="font-size:0.88rem;color:var(--text);line-height:1.75;margin-bottom:14px;">Our ophthalmology department, led by Dr. G. V. Kamalapriya Sudhakar Reddy (M.B.B.S., D.O., DNB) — Consultant Ophthalmic &amp; Orbit Surgeon, former Medical Officer at Aravind Eye Hospital, Puducherry — brings world-class expertise to Karaikal. Featuring the <strong>ALCON LEGION Advanced Cataract Surgery System</strong> for World-Class PHACO Surgery, advanced Orbit Surgery, retinal screening, and ZEISS optical dispensing — every service reflects the highest clinical standards.</p>
           <p style="font-size:0.88rem;color:var(--text);line-height:1.75;">Families from Nagapattinam, Mayiladuthurai, Tiruvarur and Puducherry choose us because we offer genuine superspeciality care with measurable outcomes, transparent pricing, and a team that treats every patient as family.</p>
         </div>
       </div>
@@ -4534,11 +5218,11 @@ footer {
       <div style="background:white;border-radius:16px;padding:22px;box-shadow:var(--shadow-card);border:1px solid rgba(184,223,245,0.3);" class="fade-up">
         <div class="faq-item">
           <button class="faq-question" onclick="toggleFaq(this)" style="font-size:0.88rem;">Who is the best dentist in Karaikal? <span class="faq-chevron">▼</span></button>
-          <div class="faq-answer">Dr. M. V. Sudhakar Reddy (BDS, FICOI) is widely regarded as the best dentist in Karaikal with 30+ years of experience. He is a specialist in dental implantology (FICOI Fellowship, Malaysia) and an expert in Root Canal Treatment, Root Canal Retreatment, and complex endodontic procedures. Book a consultation at Dr. Reddy's Dental & Eye Care Centre, Karaikal.</div>
+          <div class="faq-answer">Dr. M. V. Sudhakar Reddy (BDS, FICOI) is widely regarded as the best dentist in Karaikal with 30+ years of experience and international fellowship training in dental implantology from Malaysia. Book a consultation at Dr. Reddy's Dental & Eye Care Centre, Karaikal.</div>
         </div>
         <div class="faq-item">
           <button class="faq-question" onclick="toggleFaq(this)" style="font-size:0.88rem;">Where can I get cataract surgery in Karaikal? <span class="faq-chevron">▼</span></button>
-          <div class="faq-answer">Dr. Reddy's Eye Care Centre in Karaikal offers advanced phacoemulsification cataract surgery by Dr. G. V. Kamalapriya — trained at Aravind Eye Hospital and Narayana Nethralaya. Serving patients from Karaikal, Nagapattinam, Mayiladuthurai and Puducherry.</div>
+          <div class="faq-answer">Dr. Reddy's Eye Care Centre in Karaikal offers advanced PHACO Surgery using the <strong>ALCON LEGION Premium Cataract Surgery System</strong> — by Dr. G. V. Kamalapriya Sudhakar Reddy (M.B.B.S., D.O., DNB), Consultant Ophthalmic &amp; Orbit Surgeon, former Medical Officer at Aravind Eye Hospital, Puducherry. World-Class PHACO Surgery now available in Karaikal. Serving patients from Karaikal, Nagapattinam, Mayiladuthurai and Puducherry.</div>
         </div>
         <div class="faq-item">
           <button class="faq-question" onclick="toggleFaq(this)" style="font-size:0.88rem;">What is ZEISS I-Terminal Go technology? <span class="faq-chevron">▼</span></button>
@@ -4554,7 +5238,7 @@ footer {
         </div>
         <div class="faq-item">
           <button class="faq-question" onclick="toggleFaq(this)" style="font-size:0.88rem;">Which is the best dental implant clinic near Nagapattinam? <span class="faq-chevron">▼</span></button>
-          <div class="faq-answer">Dr. Reddy's Dental & Eye Care Centre in Karaikal is the leading dental implant clinic near Nagapattinam. Dr. Sudhakar Reddy (FICOI Fellowship, Malaysia) brings internationally benchmarked implant care, using premium implant systems for durable, natural-looking results.</div>
+          <div class="faq-answer">Dr. Reddy's Dental & Eye Care Centre in Karaikal is the leading dental implant clinic near Nagapattinam. Dr. Sudhakar Reddy (FICOI Fellowship, Malaysia) uses Osstem implants — the world's most trusted implant system.</div>
         </div>
         <div class="faq-item">
           <button class="faq-question" onclick="toggleFaq(this)" style="font-size:0.88rem;">Do you treat children for eye problems? <span class="faq-chevron">▼</span></button>
@@ -4573,7 +5257,7 @@ footer {
       <div style="background:white;border-radius:16px;padding:22px;box-shadow:var(--shadow-card);border:1px solid rgba(184,223,245,0.3);" class="fade-up">
         <div class="faq-item">
           <button class="faq-question" onclick="toggleFaq(this)" style="font-size:0.88rem;">How long does root canal treatment take? <span class="faq-chevron">▼</span></button>
-          <div class="faq-answer">Root canal treatment at Dr. Reddy's Karaikal typically requires 2–3 visits over 1–2 weeks. Dr. M. V. Sudhakar Reddy specialises in both primary RCT and complex Root Canal Retreatment cases, including calcified canals and failed RCT management. Modern RCT with digital RVG X-ray guidance is completely painless under local anaesthesia. Most patients are surprised at how comfortable the procedure is.</div>
+          <div class="faq-answer">Root canal treatment at Dr. Reddy's Karaikal typically requires 2–3 visits over 1–2 weeks. Modern RCT with digital RVG X-ray guidance is completely painless under local anaesthesia. Most patients are surprised at how comfortable the procedure is.</div>
         </div>
         <div class="faq-item">
           <button class="faq-question" onclick="toggleFaq(this)" style="font-size:0.88rem;">Do you provide smile designing in Karaikal? <span class="faq-chevron">▼</span></button>
@@ -4581,7 +5265,7 @@ footer {
         </div>
         <div class="faq-item">
           <button class="faq-question" onclick="toggleFaq(this)" style="font-size:0.88rem;">What is the cost of dental implants in Karaikal? <span class="faq-chevron">▼</span></button>
-          <div class="faq-answer">Dental implant costs vary based on the number of implants, the implant system used, and bone condition. We provide a detailed cost plan after consultation. Premium implants at Dr. Reddy's are designed to last a lifetime — making them the most cost-effective long-term tooth replacement option.</div>
+          <div class="faq-answer">Dental implant costs vary based on the number of implants, IOL type, and bone condition. We provide a detailed cost plan after consultation. Dr. Reddy's uses Osstem implants — designed to last a lifetime — making them the most cost-effective long-term tooth replacement option.</div>
         </div>
         <div class="faq-item">
           <button class="faq-question" onclick="toggleFaq(this)" style="font-size:0.88rem;">Does Dr. Reddy's have retinal screening for diabetics? <span class="faq-chevron">▼</span></button>
@@ -5452,7 +6136,7 @@ const doctorProfiles = {
   sudhakar: {
     name: 'Dr. M. V. Sudhakar Reddy',
     degree: 'BDS · FICOI',
-    role: 'Founder & Chief Dental Surgeon · Dental Implantologist · Endodontist & RCT Specialist',
+    role: 'Founder & Chief Dental Surgeon · Experienced Dental Implantologist',
     avatarLetter: 'S',
     avatarClass: 'dental',
     heroBg: 'dental-bg',
@@ -5463,43 +6147,34 @@ const doctorProfiles = {
       { icon: '⭐', text: '30+ Years Experience', cls: 'dental' },
       { icon: '👥', text: '8000+ Patients Treated', cls: 'blue' },
       { icon: '🏅', text: 'FICOI Fellowship', cls: 'dental' },
-      { icon: '🔬', text: 'RCT & Endodontic Expert', cls: 'green' }
+      { icon: '🌏', text: 'International Training', cls: 'green' }
     ],
-    quote: 'Every patient who sits in my chair deserves world-class treatment. Whether it is saving a natural tooth through precision root canal care or restoring a missing one with advanced implantology, I bring international standards to Karaikal — because every smile matters.',
+    quote: 'Every patient who sits in my chair deserves world-class treatment. I bring international standards of implantology and esthetic dentistry to Karaikal, because every smile matters.',
     quoteAttrib: '— Dr. M. V. Sudhakar Reddy, BDS, FICOI',
-    about: `Dr. M. V. Sudhakar Reddy is the Founder and Chief Dental Surgeon of Dr. Reddy's Dental & Eye Care Centre, Karaikal. With over 30 years of dedicated clinical practice, Dr. Reddy is highly regarded not only for advanced dental implantology but also for his extensive expertise in <strong>Root Canal Treatment (RCT)</strong>, <strong>Root Canal Retreatment</strong>, and a broad spectrum of minor and major dental surgical procedures. He has helped thousands of patients preserve their natural teeth through precision-based endodontic care, delivered with comfort, accuracy, and long-term success.
+    about: `Dr. M. V. Sudhakar Reddy is the Founder and Chief Dental Surgeon of Dr. Reddy's Dental & Eye Care Centre, Karaikal. With over 30 years of dedicated practice in dentistry, Dr. Reddy has transformed thousands of smiles and set a benchmark for comprehensive dental care in the Karaikal region.
 <br><br>
 Dr. Reddy earned his Bachelor of Dental Surgery (BDS) and subsequently completed his prestigious <strong>Fellowship in Implantology from Malaysia (FICOI)</strong> — one of the most respected international fellowships in dental implantology. This fellowship equipped him with cutting-edge techniques in full-mouth rehabilitation and implant-supported prosthetics that are on par with global centres of excellence.
 <br><br>
-Dr. Reddy is highly experienced in handling both routine and complex dental surgical procedures, including <strong>emergency dental care</strong>, advanced root canal treatments, retreatment cases, and <strong>full-mouth rehabilitation</strong>. With decades of experience in complex endodontic procedures — including calcified canals, failed RCT management, and multi-rooted retreatment cases — he regularly performs root canal procedures for a large number of patients from Karaikal, Nagapattinam, Mayiladuthurai, and beyond. Every procedure is guided by digital RVG X-ray technology, ensuring precise diagnosis and painless treatment under local anaesthesia.
-<br><br>
-His patient-first approach, broad surgical expertise, and decades of clinical dedication have made Dr. Reddy one of the most trusted dental surgeons in the Karaikal region — serving patients across all age groups, from paediatric to geriatric care.`,
+He is a specialist in <strong>Osstem World-Renowned Implants</strong> — the same implant system used by leading dental institutions globally — and is trained in digital dentistry using Intra Oral Scanners for precision digital impressions. His passion for esthetic dentistry has made Dr. Reddy's the most trusted destination for smile transformation in the region.`,
     expertise: [
       'Dental Implantology & Full Mouth Rehabilitation',
-      'Root Canal Treatment (RCT) — Single & Multi-rooted Canals',
-      'Root Canal Retreatment & Failed RCT Management',
-      'Complex Endodontic Treatments — Calcified & Curved Canals',
-      'Minor Oral Surgical Procedures',
-      'Major Dental Surgical Procedures',
-      'Emergency Dental Care & Acute Pain Management',
-      'Aesthetic Smile Designing & Cosmetic Dentistry',
+      'Osstem Implant System — Single & Multiple Units',
+      'Advanced Esthetic Dentistry & Smile Designing',
       'Digital Impression with Intra Oral Scanners',
+      'Oral & Maxillofacial Procedures',
+      'Root Canal Treatment & Complex Endodontics',
       'Prosthodontics — Crowns, Bridges, Dentures',
-      'Geriatric & Paediatric Dental Care',
       'Orthodontics Management & Coordination'
     ],
     qualifications: [
       'BDS — Bachelor of Dental Surgery',
       'FICOI — Fellowship of International Congress of Oral Implantologists, Malaysia',
       '30+ Years Active Clinical Practice',
-      'Advanced Root Canal Treatment & Endodontics Expertise',
-      'Specialist in Root Canal Retreatment & Complex Endodontic Cases',
-      'Experienced in Minor & Major Dental Surgical Procedures',
-      'Emergency Dental Care & Acute Management Training',
+      'Certified Osstem Implant Surgeon',
       'Digital Dentistry & Intraoral Scanner Training',
       'Advanced Esthetic Dentistry Continuing Education'
     ],
-    specialties: ['Dental Implants', 'Root Canal Treatment', 'RCT Retreatment', 'Endodontics', 'Minor Oral Surgery', 'Major Dental Surgery', 'Emergency Dental Care', 'Full Mouth Rehab', 'Smile Designing', 'FICOI Fellowship'],
+    specialties: ['Dental Implants', 'Smile Designing', 'Osstem Implants', 'Root Canal', 'Esthetic Dentistry', 'Prosthodontics', 'FICOI Fellowship', 'Oral Surgery'],
     specialtyClass: 'dental',
     ctaLabel: 'Book a Consultation with Dr. Reddy',
     ctaClass: 'dental'
@@ -6344,20 +7019,14 @@ document.addEventListener('keydown', e => {
             <select class="ap-select" id="ap-service">
               <option value="" disabled selected>— Choose a service —</option>
               <optgroup label="🦷 Dental Services" id="ap-dental-opts">
-                <option>General Dentistry & Consultation</option>
-                <option>Root Canal Treatment (RCT)</option>
-                <option>Root Canal Retreatment</option>
+                <option>General Dentistry</option>
+                <option>Orthodontics / Braces</option>
+                <option>Root Canal Treatment</option>
                 <option>Dental Implants</option>
-                <option>Full Mouth Rehabilitation</option>
-                <option>Minor Oral Surgery</option>
-                <option>Major Dental Surgery</option>
-                <option>Emergency Dental Care</option>
-                <option>Smile Designing & Cosmetic Dentistry</option>
-                <option>Orthodontics / Braces / Invisalign</option>
-                <option>Dental Crowns &amp; Bridges</option>
                 <option>Teeth Whitening</option>
+                <option>Dental Crowns &amp; Bridges</option>
                 <option>Paediatric Dentistry</option>
-                <option>Wisdom Tooth Removal</option>
+                <option>Dental Emergency</option>
               </optgroup>
               <optgroup label="👁️ Eye Care Services" id="ap-eye-opts">
                 <option>Comprehensive Eye Exam</option>
@@ -6461,28 +7130,18 @@ document.addEventListener('keydown', e => {
   function apUpdateWALink() {
     var name    = ($('ap-name').value    || '').trim();
     var phone   = ($('ap-phone').value   || '').trim();
-    var age     = ($('ap-age').value     || '').trim();
-    var email   = ($('ap-email').value   || '').trim();
     var service = ($('ap-service').value || '').trim();
     var date    = ($('ap-date').value    || '').trim();
-    var msg     = ($('ap-msg').value     || '').trim();
-    var dept    = currentDept ? (currentDept === 'dental' ? 'Dental Care' : 'Eye Care') : '';
-    var gender  = '';
-    var gChecked = document.querySelector('#ap-gender-row input[type="radio"]:checked');
-    if (gChecked) gender = gChecked.value;
+    var dept    = currentDept ? (currentDept === 'dental' ? 'Dental' : 'Eye Care') : '';
 
-    var wa = "Hello Dr. Reddy's! I'd like to book an appointment.";
-    if (name)    wa += '%0A%F0%9F%91%A4 Name: '            + encodeURIComponent(name);
-    if (phone)   wa += '%0A%F0%9F%93%9E Phone: '           + encodeURIComponent(phone);
-    if (age)     wa += '%0A%F0%9F%93%85 Age: '             + encodeURIComponent(age);
-    if (gender)  wa += '%0A%E2%9A%A7 Gender: '             + encodeURIComponent(gender);
-    if (email)   wa += '%0A%F0%9F%93%A7 Email: '           + encodeURIComponent(email);
-    if (dept)    wa += '%0A%F0%9F%8F%A5 Department: '      + encodeURIComponent(dept);
-    if (service) wa += '%0A%F0%9F%A6%B7 Service: '         + encodeURIComponent(service);
-    if (date)    wa += '%0A%F0%9F%93%86 Preferred Date: '  + encodeURIComponent(date);
-    if (msg)     wa += '%0A%F0%9F%93%9D Message: '         + encodeURIComponent(msg);
+    var msg = "Hello Dr. Reddy's!%0AI'd like to book an appointment.";
+    if (name)    msg += '%0AName: '        + encodeURIComponent(name);
+    if (phone)   msg += '%0APhone: '       + encodeURIComponent(phone);
+    if (dept)    msg += '%0ADepartment: '  + encodeURIComponent(dept);
+    if (service) msg += '%0AService: '     + encodeURIComponent(service);
+    if (date)    msg += '%0APreferred Date: ' + encodeURIComponent(date);
 
-    $('ap-wa-link').href = 'https://wa.me/919894591195?text=' + wa;
+    $('ap-wa-link').href = 'https://wa.me/919894591195?text=' + msg;
   }
 
   /* ── Gender radios ── */
@@ -6512,20 +7171,22 @@ document.addEventListener('keydown', e => {
       return;
     }
 
-    /* Rebuild full WhatsApp link with all fields then open */
+    /* Build WhatsApp message & open in new tab */
     apUpdateWALink();
-    window.open($('ap-wa-link').href, '_blank');
 
-    /* Build success summary */
-    var dept    = currentDept ? (currentDept === 'dental' ? 'Dental Care' : 'Eye Care') : '';
+    /* Build success message */
+    var dept    = currentDept ? (currentDept === 'dental' ? 'Dental' : 'Eye Care') : '';
     var service = ($('ap-service').value || '').trim();
     var date    = ($('ap-date').value    || '').trim();
     var summary = 'Thank you, ' + name + '!';
     if (dept || service) summary += ' Your ' + (service || dept) + ' appointment';
     else                 summary += ' Your appointment';
     if (date)            summary += ' on ' + date;
-    summary += ' request has been sent via WhatsApp. We\u2019ll confirm your slot within 2 hours.';
+    summary += ' has been requested. We'll confirm via phone within 2 hours.';
     $('ap-success-msg').textContent = summary;
+
+    /* Also redirect WhatsApp */
+    window.open($('ap-wa-link').href, '_blank');
 
     /* Switch to success view */
     $('ap-form-view').style.display = 'none';
@@ -6588,7 +7249,7 @@ document.addEventListener('keydown', e => {
   };
 
   /* ── Live update WA link on input ── */
-  ['ap-name','ap-phone','ap-age','ap-email','ap-service','ap-date','ap-msg'].forEach(function (id) {
+  ['ap-name','ap-phone','ap-service','ap-date'].forEach(function (id) {
     var el = $(id);
     if (el) el.addEventListener('input', apUpdateWALink);
   });
