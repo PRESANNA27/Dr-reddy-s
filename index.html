@@ -6767,34 +6767,88 @@ document.addEventListener('keydown', e => {
   flex-shrink: 0;
 }
 
+/* ── Close button sticky wrapper ──
+   position:sticky + float:right are mutually exclusive (float removes element
+   from normal flow, breaking sticky in all mobile browsers).
+   Fix: a zero-height sticky row that uses flex to push the button right,
+   so the button stays pinned at the top of the visible card area while
+   content scrolls freely beneath it.                                    */
+#ap-close-bar {
+  position: sticky;
+  top: 5px;           /* just below the 5px gradient ::before bar      */
+  z-index: 20;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 10px 14px 0;
+  margin-bottom: -54px; /* zero layout height — content flows up under bar */
+  pointer-events: none; /* bar itself is click-through                  */
+}
+
 /* ── Close button ── */
 #ap-close {
-  position: sticky;
-  top: 10px;
-  float: right;
-  margin: -5px 14px 0 0;
-  width: 34px; height: 34px;
+  position: relative;  /* parent sticky-bar handles pinning              */
+  pointer-events: all;
+  width: 36px; height: 36px;
+  min-width: 36px; min-height: 36px;
   border: none;
-  background: rgba(226,238,248,0.8);
+  background: rgba(226,238,248,0.92);
   border-radius: 50%;
   cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   transition: background 0.2s, transform 0.25s;
-  z-index: 10;
   color: #0a4d7c;
   flex-shrink: 0;
+  /* Subtle shadow so it's always visible above card content */
+  box-shadow: 0 2px 8px rgba(10,29,50,0.10);
+  /* Larger invisible tap area via padding without growing visually */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 #ap-close:hover {
   background: rgba(232,108,44,0.18);
   transform: rotate(90deg) scale(1.12);
   color: #e86c2c;
 }
-#ap-close svg { width:15px; height:15px; stroke:currentColor; fill:none; stroke-width:2.8; stroke-linecap:round; }
+#ap-close:active { transform: rotate(90deg) scale(0.96); }
+#ap-close svg { width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:2.8; stroke-linecap:round; }
+
+/* ── Mobile: full 44×44 touch target, solid background, safe-area ── */
+@media (max-width: 768px), (hover: none), (pointer: coarse) {
+  #ap-close-bar {
+    top: 5px;
+    padding: 10px 12px 0;
+    /* iPhone notch / dynamic island support */
+    padding-top: max(10px, env(safe-area-inset-top));
+    /* Extra safety: never let bar go behind system UI */
+    top: max(5px, env(safe-area-inset-top));
+    margin-bottom: -62px;
+  }
+  #ap-close {
+    width: 44px; height: 44px;
+    min-width: 44px; min-height: 44px;
+    /* Solid, always-visible background — no transparency on mobile */
+    background: #ffffff;
+    border: 1.5px solid rgba(30,127,196,0.18);
+    box-shadow:
+      0 2px 12px rgba(10,29,50,0.14),
+      0 0 0 4px rgba(255,255,255,0.6); /* outer glow to lift above card bg */
+    color: #0a4d7c;
+  }
+  #ap-close svg { width:16px; height:16px; }
+}
 
 /* ── Inner padding ── */
 #ap-inner {
   padding: 10px 38px 36px;
-  clear: both;
+  /* No longer needs clear:both — float is gone */
+}
+
+/* ── Tablet-range: right-side padding for close btn clearance (601–768px) ── */
+@media (max-width: 768px) {
+  #ap-inner {
+    padding-right: 56px;
+  }
 }
 
 /* ── Header ── */
@@ -7102,7 +7156,9 @@ document.addEventListener('keydown', e => {
 
 /* ── Mobile ── */
 @media (max-width: 600px) {
-  #ap-inner { padding: 8px 20px 28px; }
+  #ap-inner {
+    padding: 8px 56px 28px 20px; /* right=56px clears the sticky 44px close btn */
+  }
   .ap-grid { grid-template-columns: 1fr; }
   .ap-grid .ap-full { grid-column: 1; }
   .ap-btn-row { flex-direction: column; gap: 9px; }
@@ -7110,7 +7166,12 @@ document.addEventListener('keydown', e => {
 }
 @media (max-width: 420px) {
   #ap-overlay { padding: 0; align-items: flex-end; }
-  #ap-card { border-radius: 22px 22px 0 0; max-height: 96vh; }
+  #ap-card {
+    border-radius: 22px 22px 0 0;
+    max-height: 96vh;
+    /* Reserve space for iPhone home indicator */
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
   #ap-card::before { border-radius: 22px 22px 0 0; }
   .ap-gender-row { flex-wrap: wrap; }
 }
@@ -7135,10 +7196,12 @@ document.addEventListener('keydown', e => {
 
     <!-- Accent bar is ::before pseudo -->
 
-    <!-- Close -->
-    <button id="ap-close" onclick="closeApptPopup()" aria-label="Close">
-      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
+    <!-- Sticky close bar: zero-height, stays pinned while content scrolls -->
+    <div id="ap-close-bar">
+      <button id="ap-close" onclick="closeApptPopup()" aria-label="Close appointment popup">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
 
     <!-- ── Form view ── -->
     <div id="ap-form-view">
