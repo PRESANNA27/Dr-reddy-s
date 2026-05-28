@@ -67,6 +67,7 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 body {
@@ -2697,7 +2698,7 @@ footer {
     flex: 1 1 auto;
     min-width: 0;
     gap: 8px;
-    overflow: hidden;
+    /* removed overflow:hidden — it was clipping the wrapped subtitle line */
   }
   .nav-logo img {
     width: 38px;
@@ -2706,7 +2707,7 @@ footer {
   }
   .nav-logo-text {
     min-width: 0;
-    overflow: hidden;
+    overflow: visible; /* was hidden — was clipping the subtitle */
   }
   .nav-logo-text .clinic-name {
     font-size: 0.78rem;
@@ -2714,11 +2715,15 @@ footer {
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  /* ── SUBTITLE FIX: allow 2-line wrap instead of clipping with ellipsis ── */
   .nav-logo-text .clinic-sub {
-    font-size: 0.58rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: 0.54rem;
+    white-space: normal;    /* was nowrap — now wraps to 2nd line           */
+    overflow: visible;      /* was hidden — was cutting off the wrapped line  */
+    text-overflow: unset;   /* remove ellipsis (only works with nowrap)       */
+    line-height: 1.25;
+    word-break: keep-all;   /* keeps "SUPER SPECIALITY" together on line 1    */
+    display: block;
   }
   .nav-cta {
     flex-shrink: 0;
@@ -2846,10 +2851,20 @@ footer {
 
 @media (max-width: 480px) {
   /* ── Extra-small navbar: compress further without overlap ── */
-  #navbar { padding: 0 3%; height: 64px; gap: 6px; }
+  /* height bumped to 68px to give 2-line subtitle room to breathe */
+  #navbar { padding: 0 3%; height: 68px; gap: 6px; }
   .nav-logo img { width: 32px; height: 32px; }
   .nav-logo-text .clinic-name { font-size: 0.72rem; }
-  .nav-logo-text .clinic-sub { display: none; }  /* hide subtitle on tiny phones */
+  /* SUBTITLE FIX: show on small phones with wrap instead of hiding */
+  .nav-logo-text .clinic-sub {
+    display: block;       /* was display:none — now visible             */
+    font-size: 0.46rem;   /* smaller but readable                       */
+    white-space: normal;  /* wrap onto 2 lines                          */
+    overflow: visible;
+    text-overflow: unset;
+    line-height: 1.2;
+    letter-spacing: 0.4px;
+  }
   .nav-cta { padding: 7px 13px; font-size: 0.72rem; }
 
   .hero-title { font-size: 2rem; }
@@ -2876,6 +2891,19 @@ footer {
   /* Gallery tabs wrap cleanly */
   .gallery-filter-tabs { gap: 7px; }
   .gallery-tab { padding: 6px 13px; font-size: 0.75rem; }
+}
+
+/* ── 360px: ultra-small Android phones (Galaxy A, older Androids) ── */
+@media (max-width: 360px) {
+  #navbar { padding: 0 2.5%; gap: 5px; }
+  .nav-logo img { width: 28px; height: 28px; }
+  .nav-logo-text .clinic-name { font-size: 0.66rem; }
+  .nav-logo-text .clinic-sub {
+    font-size: 0.42rem;
+    letter-spacing: 0.25px;
+    line-height: 1.15;
+  }
+  .nav-cta { padding: 6px 10px; font-size: 0.68rem; }
 }
 
 /* ========================================
@@ -5867,7 +5895,9 @@ function openMobileNav() {
   }
 }
 function closeMobileNav() {
-  document.getElementById('mobileNav').classList.remove('open');
+  var nav = document.getElementById('mobileNav');
+  if (!nav || !nav.classList.contains('open')) return; /* guard: only close if open */
+  nav.classList.remove('open');
   document.getElementById('mobileOverlay').classList.remove('open');
   if (window._unlockBodyScroll) {
     window._unlockBodyScroll();
@@ -6357,7 +6387,9 @@ function openModal(serviceKey) {
 }
 
 function closeModal() {
-  document.getElementById('serviceModal').classList.remove('open');
+  var el = document.getElementById('serviceModal');
+  if (!el || !el.classList.contains('open')) return; /* guard: only close if open */
+  el.classList.remove('open');
   if (window._unlockBodyScroll) { window._unlockBodyScroll(); } else { document.body.style.overflow = ''; }
 }
 function closeModalOnOverlay(e) {
@@ -6719,7 +6751,9 @@ function openDoctorProfile(key) {
 }
 
 function closeDoctorProfile() {
-  document.getElementById('doctorProfileOverlay').classList.remove('open');
+  var el = document.getElementById('doctorProfileOverlay');
+  if (!el || !el.classList.contains('open')) return; /* guard: only close if open */
+  el.classList.remove('open');
   if (window._unlockBodyScroll) { window._unlockBodyScroll(); } else { document.body.style.overflow = ''; }
 }
 
@@ -6736,7 +6770,9 @@ function openConsultantProfile(key) {
 }
 
 function closeConsultantProfile() {
-  document.getElementById('consultantProfileOverlay').classList.remove('open');
+  var el = document.getElementById('consultantProfileOverlay');
+  if (!el || !el.classList.contains('open')) return; /* guard: only close if open */
+  el.classList.remove('open');
   if (window._unlockBodyScroll) { window._unlockBodyScroll(); } else { document.body.style.overflow = ''; }
 }
 
@@ -7443,10 +7479,20 @@ document.addEventListener('keydown', e => {
     if (_scrollLockCount === 0) {
       var y = _scrollLockY; /* capture before resetting */
       document.body.classList.remove('modal-open');
+      document.body.classList.remove('no-scroll');
+      document.documentElement.classList.remove('no-scroll');
       document.body.style.position = '';
       document.body.style.top      = '';
       document.body.style.width    = '';
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      /* Safety: clear after paint so no residual lock survives transitions */
+      setTimeout(function () {
+        if (_scrollLockCount === 0) {
+          document.body.style.overflow = '';
+          document.documentElement.style.overflow = '';
+        }
+      }, 50);
       window.scrollTo(0, y);
     }
   }
@@ -7621,15 +7667,17 @@ document.addEventListener('keydown', e => {
   window.openAppointmentModal  = openApptPopup;
   window.closeAppointmentModal = window.closeApptPopup;
 
-  /* ── Helper: close a modal WITHOUT releasing the scroll lock ─────────────
-     Used by "close service/doctor modal → open appointment" chains so the
-     lock count stays at 1 (no flash / incorrect scrollY restoration).
+  /* ── Helper: close a modal then open appointment popup ───────────────────
+     Formerly tried to keep lock count intact via inflation, which caused
+     _scrollLockCount to reach 2 so closeApptPopup could only bring it to 1
+     (never 0) — leaving the page permanently scroll-locked.
+     Fix: just call closeFn() normally (count goes to 0 → scroll restored),
+     then openApptPopup() re-acquires the lock cleanly from 0→1.
+     The imperceptible re-lock is far better than a frozen page.
   ─────────────────────────────────────────────────────────────────────── */
   window._closeModalKeepLock = function (closeFn) {
-    /* Temporarily inflate the lock count so closeFn's pop doesn't hit 0 */
-    _scrollLockCount++;
-    closeFn();
-    /* The count is now back where it was (closeFn decremented, we incremented) */
+    closeFn(); /* normal close: count 1→0, scroll restored */
+    /* openApptPopup() called by caller immediately after — re-locks from 0→1 */
   };
 
   /* ── Centralized "Book Now" binding ──────────────────────────────────────
