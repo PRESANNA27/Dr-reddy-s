@@ -66,6 +66,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 90px; /* offset for sticky navbar */
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -3960,15 +3961,15 @@ footer {
 
 <!-- MOBILE NAV -->
 <div class="mobile-nav" id="mobileNav">
-  <a href="#hero">🏠 Home</a>
-  <a href="#about">👨‍⚕️ Our Doctors</a>
+  <a href="#hero" onclick="closeMobileNav()">🏠 Home</a>
+  <a href="#about" onclick="closeMobileNav()">👨‍⚕️ Our Doctors</a>
   <a href="#dental-services" onclick="switchPhase('dental');closeMobileNav()">🦷 Dental Services Only</a>
   <a href="#eye-services" onclick="switchPhase('eye');closeMobileNav()">👁 Eye Services Only</a>
   <a href="#about" onclick="switchPhase('both');closeMobileNav()">✦ View All Services</a>
-  <a href="#consultants">🩺 Consultants</a>
-  <a href="#prevention">💡 Prevention Tips</a>
-  <a href="#why-us">⭐ Why Choose Us</a>
-  <a href="#gallery">🖼 Gallery</a>
+  <a href="#consultants" onclick="closeMobileNav()">🩺 Consultants</a>
+  <a href="#prevention" onclick="closeMobileNav()">💡 Prevention Tips</a>
+  <a href="#why-us" onclick="closeMobileNav()">⭐ Why Choose Us</a>
+  <a href="#gallery" onclick="closeMobileNav()">🖼 Gallery</a>
   <a href="#appointment" data-open-appointment>📅 Book Appointment</a>
   <a href="tel:+919894591195" style="color:#27ae60;font-weight:700;margin-top:10px;">📞 +91 98945 91195</a>
   <!-- Mobile Mode Toggle -->
@@ -5912,10 +5913,59 @@ function closeMobileNav() {
     window._unlockBodyScroll();
   } else {
     document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    document.documentElement.style.overflow = '';
   }
 }
 
-// ---- PHASE TOGGLE ----
+// ---- MOBILE NAV LINK CLICK HANDLER ----
+// Intercepts anchor clicks inside mobile nav:
+// 1. Prevents default (body is position:fixed while menu is open, so native anchors fail)
+// 2. Closes the menu (which calls _unlockBodyScroll → window.scrollTo(0, savedY))
+// 3. After unlockBodyScroll's own scrollTo settles (~50ms safety), scrolls to target
+(function () {
+  var mobileNav = document.getElementById('mobileNav');
+  if (!mobileNav) return;
+
+  mobileNav.addEventListener('click', function (e) {
+    var link = e.target.closest('a');
+    if (!link) return;
+
+    var href = link.getAttribute('href');
+
+    // Let tel: / mailto: links work natively
+    if (!href || href.startsWith('tel:') || href.startsWith('mailto:')) return;
+
+    // data-open-appointment links: close menu and let the appointment handler take over
+    if (link.hasAttribute('data-open-appointment')) {
+      closeMobileNav();
+      return; // appointment popup handler bound separately — no scroll needed
+    }
+
+    // Only intercept in-page anchors
+    if (!href.startsWith('#')) return;
+
+    var target = document.querySelector(href);
+    if (!target) return;
+
+    e.preventDefault(); // block browser's native (broken) anchor behaviour
+
+    // Close menu — this calls _unlockBodyScroll which does window.scrollTo(0, savedY)
+    // and then a 50ms safety timeout. We wait 200ms so both settle first.
+    closeMobileNav();
+
+    setTimeout(function () {
+      var navbar   = document.getElementById('navbar');
+      var offset   = navbar ? navbar.offsetHeight + 10 : 90;
+      var top      = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }, 200);
+  }, { passive: false });
+})();
+
+
 let currentMode = 'both';
 
 function switchPhase(phase) {
