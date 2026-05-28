@@ -64,13 +64,27 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; overflow-x: hidden; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
 body {
   font-family: 'Outfit', sans-serif;
   background: var(--white);
   color: var(--text);
   overflow-x: hidden;
   cursor: none;
+  touch-action: pan-y;
+}
+/* ── Modal-open body lock (cross-browser incl. iOS Safari) ── */
+body.modal-open {
+  overflow: hidden !important;
+  touch-action: none !important;
+  /* iOS Safari scroll-lock via position:fixed + stored scroll offset */
+  position: fixed;
+  width: 100%;
+  /* top is set dynamically by JS */
 }
 img { max-width: 100%; display: block; }
 a { text-decoration: none; color: inherit; }
@@ -630,6 +644,8 @@ body:has(button:hover) #cursor-outer {
   gap: 60px;
   animation: marquee 30s linear infinite;
   width: max-content;
+  transform: translateZ(0); /* GPU layer for smooth continuous animation */
+  will-change: transform;
 }
 .marquee-track:hover { animation-play-state: paused; }
 @keyframes marquee {
@@ -1490,6 +1506,8 @@ body.mode-eye #hero {
   gap: 20px;
   animation: servicesScroll 35s linear infinite;
   width: max-content;
+  transform: translateZ(0); /* GPU layer */
+  will-change: transform;
 }
 .services-track:hover { animation-play-state: paused; }
 @keyframes servicesScroll {
@@ -1545,6 +1563,8 @@ body.mode-eye #hero {
   transition: var(--transition);
   cursor: none;
   position: relative;
+  transform: translateZ(0); /* GPU layer for smooth hover transitions */
+  will-change: transform;
 }
 .service-card:hover {
   transform: translateY(-6px);
@@ -2180,6 +2200,7 @@ body.mode-eye #hero {
   margin-bottom: 14px;
   display: block;
   background: var(--sky-light);
+  transform: translateZ(0); /* GPU layer prevents repaints during scroll */
 }
 .gallery-item.hidden { display: none !important; }
 .gallery-item img {
@@ -2190,6 +2211,21 @@ body.mode-eye #hero {
   transition: transform 0.5s ease;
 }
 .gallery-item:hover img { transform: scale(1.05); }
+/* Touch devices: disable hover scale to prevent sticky hover state lag */
+@media (hover: none), (pointer: coarse) {
+  .gallery-item:hover img { transform: none; }
+  .gallery-item:hover .gallery-overlay { opacity: 0; }
+  .gallery-item:hover .gallery-cat-badge { opacity: 0; transform: translateY(-4px); }
+  /* Show label by default on touch so the overlay info isn't hidden */
+  .gallery-item .gallery-overlay { opacity: 0.7; }
+  .gallery-item .gallery-label { font-size: 0.7rem; }
+  /* Remove expensive backdrop-filter from gallery badge on mobile */
+  .gallery-cat-badge {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(10,29,50,0.65);
+  }
+}
 .gallery-overlay {
   position: absolute;
   inset: 0;
@@ -2514,6 +2550,8 @@ footer {
   border: none;
   font-family: 'Outfit', sans-serif;
   color: white;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 .emer-btn:hover { transform: translateY(-3px) scale(1.03); }
 .emer-btn.call {
@@ -2694,6 +2732,74 @@ footer {
 .consultant-card[onclick]:hover {
   transform: translateY(-6px);
   box-shadow: 0 16px 40px rgba(30,127,196,0.18);
+}
+
+/* ========================================
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   Reduces repaint cost without changing design
+======================================== */
+@media (max-width: 768px) {
+
+  /* Disable expensive backdrop-filter on mobile */
+  .modal-overlay,
+  .doctor-profile-overlay,
+  nav#navbar,
+  .mobile-nav {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Simplify hero floating shapes - reduce animation complexity */
+  .hero-shape {
+    animation-duration: 14s !important; /* slower = fewer repaints */
+    opacity: 0.08 !important;
+  }
+  .hero-shape-2, .hero-shape-3 {
+    display: none; /* keep only primary shape on mobile */
+  }
+
+  /* Reduce service card hover effects on touch devices */
+  .service-card {
+    will-change: auto; /* release layer on mobile unless hovering */
+  }
+  @media (hover: none), (pointer: coarse) {
+    .service-card:hover {
+      transform: none;
+      box-shadow: var(--shadow-card);
+    }
+    .service-card-img img:hover { transform: none; }
+    .service-pill:hover {
+      transform: none;
+      background: white;
+      color: var(--text);
+      box-shadow: 0 4px 16px rgba(30,127,196,0.1);
+    }
+    .emer-btn:hover { transform: none; }
+  }
+
+  /* Reduce glow / box-shadow intensity on mobile */
+  .hero-badge { box-shadow: 0 2px 10px rgba(30,127,196,0.1); }
+  .emer-btn.call { box-shadow: 0 4px 12px rgba(39,174,96,0.3); }
+  .emer-btn.emergency { box-shadow: 0 4px 12px rgba(231,76,60,0.3); }
+
+  /* Reduce scroll animation stagger delays on mobile for faster perceived load */
+  .stagger-children > * { transition-duration: 0.35s !important; }
+  .fade-up { transition-duration: 0.35s !important; }
+
+  /* Disable marquee/auto-scroll animations on mobile to save CPU */
+  .services-track {
+    animation-duration: 55s !important;
+  }
+
+  /* content-visibility for off-screen sections (improves initial render) */
+  #dental-services,
+  #eye-services,
+  #gallery,
+  #prevention,
+  #consultants {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 600px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -3235,6 +3341,8 @@ footer {
   gap: 22px;
   width: max-content;
   animation: reviewsScroll 40s linear infinite;
+  transform: translateZ(0); /* GPU layer */
+  will-change: transform;
 }
 .reviews-track:hover { animation-play-state: paused; }
 @keyframes reviewsScroll {
@@ -7006,6 +7114,15 @@ document.addEventListener('keydown', e => {
   #ap-card::before { border-radius: 22px 22px 0 0; }
   .ap-gender-row { flex-wrap: wrap; }
 }
+
+/* ── Mobile: disable expensive backdrop-filter on popup overlay ── */
+@media (max-width: 768px), (hover: none), (pointer: coarse) {
+  #ap-overlay {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(8, 22, 48, 0.80); /* slightly more opaque to compensate */
+  }
+}
 </style>
 
 <!-- ── Popup HTML ── -->
@@ -7172,6 +7289,23 @@ document.addEventListener('keydown', e => {
   var DELAY_MS    = 5000;
   var currentDept = null;
 
+  /* ── iOS Safari scroll lock helpers ──
+     position:fixed is the only reliable way to lock scroll on iOS.
+     We store/restore scrollY so the page doesn't jump.  */
+  var _scrollY = 0;
+
+  function lockBodyScroll() {
+    _scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+    document.body.style.top     = '-' + _scrollY + 'px';
+    document.body.classList.add('modal-open');
+  }
+
+  function unlockBodyScroll() {
+    document.body.classList.remove('modal-open');
+    document.body.style.top = '';
+    window.scrollTo(0, _scrollY);
+  }
+
   /* ── Helpers ── */
   function $(id) { return document.getElementById(id); }
 
@@ -7253,7 +7387,7 @@ document.addEventListener('keydown', e => {
     if (dept || service) summary += ' Your ' + (service || dept) + ' appointment';
     else                 summary += ' Your appointment';
     if (date)            summary += ' on ' + date;
-    summary += ' has been requested. We'll confirm via phone within 2 hours.';
+    summary += ' has been requested. We\u2019ll confirm via phone within 2 hours.';
     $('ap-success-msg').textContent = summary;
 
     /* Also redirect WhatsApp */
@@ -7276,7 +7410,6 @@ document.addEventListener('keydown', e => {
     if (_closeTimer) {
       clearTimeout(_closeTimer);
       _closeTimer = null;
-      /* Also clean up any stale inline display:none left by a previous close */
       overlay.style.display = '';
     }
 
@@ -7289,7 +7422,7 @@ document.addEventListener('keydown', e => {
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
         overlay.classList.add('ap-anim');
-        document.body.style.overflow = 'hidden';
+        lockBodyScroll(); /* iOS-safe scroll lock */
       });
     });
 
@@ -7297,7 +7430,7 @@ document.addEventListener('keydown', e => {
     try { sessionStorage.setItem(STORAGE_KEY, '1'); } catch (e) {}
   }
 
-  /* ── Close (global) ── */
+  /* ── Close ── (also exposed as openAppointmentModal / closeAppointmentModal aliases) */
   window.closeApptPopup = function () {
     var overlay = $('ap-overlay');
     if (!overlay) return;
@@ -7309,8 +7442,8 @@ document.addEventListener('keydown', e => {
     _closeTimer = setTimeout(function () {
       _closeTimer = null;
       overlay.classList.remove('ap-show');
-      overlay.style.display = 'none'; /* belt-and-suspenders: ensure hidden */
-      document.body.style.overflow = '';
+      overlay.style.display = 'none'; /* belt-and-suspenders */
+      unlockBodyScroll(); /* restore scroll — iOS safe */
       /* Reset form back to input view for next open */
       var formView = $('ap-form-view');
       var success  = $('ap-success');
@@ -7318,6 +7451,30 @@ document.addEventListener('keydown', e => {
       if (success)  success.style.display  = 'none';
     }, 450);
   };
+
+  /* ── Global aliases as specified ── */
+  window.openAppointmentModal  = openApptPopup;
+  window.closeAppointmentModal = window.closeApptPopup;
+
+  /* ── Overlay click-to-close (click backdrop) ── */
+  var overlay = $('ap-overlay');
+  if (overlay) {
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) window.closeApptPopup();
+    });
+    /* Prevent touch scroll from bubbling through overlay on iOS */
+    overlay.addEventListener('touchmove', function (e) {
+      if (e.target === overlay) e.preventDefault();
+    }, { passive: false });
+  }
+
+  /* ── ESC key to close ── */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      var ov = $('ap-overlay');
+      if (ov && ov.classList.contains('ap-show')) window.closeApptPopup();
+    }
+  });
 
   /* ── Live update WA link on input ── */
   ['ap-name','ap-phone','ap-service','ap-date'].forEach(function (id) {
@@ -7332,8 +7489,9 @@ document.addEventListener('keydown', e => {
 
   /* ── Auto-trigger: fire after DELAY_MS on every fresh page load ──
      Uses DOMContentLoaded guard in case the script is ever moved up,
-     and only skips if sessionStorage already has the key (once-per-session). */
-  var _popupScheduled = false; /* prevent double-scheduling */
+     and only skips if sessionStorage already has the key (once-per-session).
+     _popupScheduled flag prevents double-scheduling on fast browsers. */
+  var _popupScheduled = false;
 
   function schedulePopup() {
     if (_popupScheduled) return;
@@ -7341,11 +7499,13 @@ document.addEventListener('keydown', e => {
 
     var shown = false;
     try { shown = !!sessionStorage.getItem(STORAGE_KEY); } catch (e) {}
+
     if (!shown) {
       window.setTimeout(function () {
-        /* Only open if no other overlay is currently open */
-        var overlay = $('ap-overlay');
-        if (overlay && !overlay.classList.contains('ap-show')) {
+        var ov = $('ap-overlay');
+        /* Only open if not already open and no other modal is visible */
+        if (ov && !ov.classList.contains('ap-show')) {
+          /* Extra guard: don't open if user is already interacting with the page */
           openApptPopup();
         }
       }, DELAY_MS);
@@ -7355,7 +7515,7 @@ document.addEventListener('keydown', e => {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', schedulePopup);
   } else {
-    /* DOM already ready (script is at end of body) — schedule immediately */
+    /* DOM already ready (script at end of body) — schedule immediately */
     schedulePopup();
   }
 
