@@ -934,7 +934,7 @@ body.mode-dental #alcon-legion-section { display: none !important; }
   background: linear-gradient(145deg, #051a2e 0%, #0a2d4a 35%, #073d5c 60%, #0a4d7c 100%);
   position: relative;
   overflow: hidden;
-  padding: 72px 0 80px;
+  padding: 56px 0 64px;
 }
 #alcon-legion-section::before {
   content: '';
@@ -957,10 +957,10 @@ body.mode-dental #alcon-legion-section { display: none !important; }
 .alcon-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 48px;
+  gap: 40px;
   align-items: center;
 }
-@media (max-width: 860px) { .alcon-grid { grid-template-columns: 1fr; gap: 36px; } }
+@media (max-width: 860px) { .alcon-grid { grid-template-columns: 1fr; gap: 28px; } }
 .alcon-badge-top {
   display: inline-flex;
   align-items: center;
@@ -974,14 +974,14 @@ body.mode-dental #alcon-legion-section { display: none !important; }
   padding: 5px 16px;
   border-radius: 30px;
   text-transform: uppercase;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
 .alcon-main-title {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
   font-weight: 800;
   color: #fff;
-  line-height: 1.1;
+  line-height: 1.15;
   margin-bottom: 8px;
 }
 .alcon-main-title .al-accent {
@@ -991,9 +991,9 @@ body.mode-dental #alcon-legion-section { display: none !important; }
   background-clip: text;
 }
 .alcon-subtitle {
-  font-size: 1.08rem;
+  font-size: 0.95rem;
   color: rgba(255,255,255,0.7);
-  margin-bottom: 22px;
+  margin-bottom: 18px;
   font-weight: 400;
   line-height: 1.6;
 }
@@ -1705,7 +1705,7 @@ body.mode-eye #hero {
   color: var(--dark);
 }
 .modal-close {
-  width: 40px; height: 40px;
+  width: 44px; height: 44px;
   border-radius: 50%;
   border: 1px solid var(--sky);
   background: white;
@@ -1717,11 +1717,32 @@ body.mode-eye #hero {
   transition: var(--transition-fast);
   color: var(--text);
   font-family: 'Outfit', sans-serif;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 .modal-close:hover {
   background: var(--blue);
   color: white;
   border-color: var(--blue);
+}
+/* Mobile: sticky close button always visible */
+@media (max-width: 768px) {
+  .modal-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: white;
+    border-radius: 20px 20px 0 0;
+  }
+  .modal-close {
+    position: sticky;
+    top: 12px;
+    z-index: 20;
+    min-width: 44px;
+    min-height: 44px;
+    box-shadow: 0 2px 12px rgba(10,29,50,0.15);
+  }
 }
 .modal-body {
   padding: 30px 36px;
@@ -2634,9 +2655,22 @@ footer {
   .emergency-float { bottom: 20px; right: 15px; }
   .emer-btn { padding: 10px 16px; font-size: 0.75rem; }
   .modal-body { padding: 20px; }
-  .modal-header { padding: 20px; }
+  .modal-header { padding: 16px 20px; }
   .float-mode-switcher { display: none; }
   .mode-indicator { font-size: 0.68rem; padding: 7px 14px; }
+  /* Doctor cards equal on mobile */
+  .doctors-grid { grid-template-columns: 1fr; gap: 20px; }
+  .doctor-card { width: 100%; }
+  .doctor-specialist-pills { gap: 6px; }
+  .doctor-specialist-pill { font-size: 0.65rem; padding: 4px 10px; }
+  .doctor-reg-badge { font-size: 0.68rem; }
+  /* Alcon mobile */
+  #alcon-legion-section { padding: 44px 0 50px; }
+  .alcon-main-title { font-size: clamp(1.45rem, 5.5vw, 2rem); line-height: 1.2; }
+  .alcon-subtitle { font-size: 0.88rem; }
+  .alcon-phaco-highlight h3 { font-size: 0.95rem; }
+  .alcon-cta-row { flex-direction: column; gap: 12px; align-items: flex-start; }
+  .alcon-cta-btn { width: 100%; text-align: center; justify-content: center; }
 }
 
 /* ---- Doctor card clickable indicator ---- */
@@ -2669,6 +2703,24 @@ footer {
   .section-title { font-size: 1.6rem; }
   .gallery-masonry { columns: 1; }
   .consultants-grid { grid-template-columns: 1fr 1fr; }
+  /* Alcon small phones */
+  .alcon-main-title { font-size: clamp(1.3rem, 6vw, 1.7rem); }
+  .alcon-world-class-badge { font-size: 0.65rem; padding: 7px 14px; }
+  .alcon-benefits-grid { gap: 8px; }
+  .alcon-cta-btn { font-size: 0.85rem; padding: 12px 20px; }
+  /* Doctor cards small phones */
+  .doctor-card-header { gap: 12px; }
+  .doctor-avatar-wrap { width: 56px; height: 56px; flex-shrink: 0; }
+  .doctor-avatar-placeholder { width: 56px; height: 56px; font-size: 1.5rem; }
+  .doctor-name { font-size: 0.95rem; }
+  .doctor-degree { font-size: 0.72rem; }
+  .doctor-card-body { padding: 16px 18px 20px; }
+  /* Modal mobile */
+  .modal-box { border-radius: 20px 20px 0 0; max-height: 92vh; }
+  .modal-columns { grid-template-columns: 1fr; }
+  /* Gallery tabs wrap cleanly */
+  .gallery-filter-tabs { gap: 7px; }
+  .gallery-tab { padding: 6px 13px; font-size: 0.75rem; }
 }
 
 /* ========================================
@@ -3372,9 +3424,9 @@ footer {
         {"@type": "City", "name": "Tiruvarur"},
         {"@type": "City", "name": "Puducherry"}
       ],
-      "hasMap": "https://www.google.com/maps?q=Karaikal,Tamil+Nadu",
+      "hasMap": "https://maps.app.goo.gl/zeUFUajuZyZpbcCj6",
       "sameAs": [
-        "https://www.google.com/maps?q=Dr+Reddys+Dental+Eye+Care+Karaikal"
+        "https://maps.app.goo.gl/zeUFUajuZyZpbcCj6"
       ],
       "medicalSpecialty": ["Dentistry","Ophthalmology","Oral Surgery","Orthodontics","Periodontics","Pediatric Dentistry"],
       "availableService": [
@@ -3682,7 +3734,7 @@ footer {
   "slogan": "Advanced Dental and Eye Care in Karaikal",
   "numberOfEmployees": {"@type": "QuantitativeValue", "value": 20},
   "sameAs": [
-    "https://www.google.com/maps?q=Dr+Reddys+Dental+Eye+Care+Karaikal"
+    "https://maps.app.goo.gl/zeUFUajuZyZpbcCj6"
   ]
 }
 </script>
@@ -3895,7 +3947,7 @@ footer {
     </div>
     <div class="about-grid stagger-children">
       <!-- Dr. Sudhakar Reddy -->
-      <div class="doctor-card dental fade-up" id="dental-doctor" onclick="openDoctorProfile('sudhakar')" style="cursor:pointer;" title="Click to view full profile">
+      <div class="doctor-card dental fade-up" id="dental-doctor" onclick="openDoctorProfile('sudhakar')" style="cursor:pointer;position:relative;" title="Click to view full profile">
         <div class="doctor-card-stripe"></div>
         <div class="doctor-card-header">
           <div class="doctor-avatar-wrap">
@@ -3905,18 +3957,25 @@ footer {
           <div class="doctor-info">
             <div class="doctor-name">Dr. M. V. Sudhakar Reddy</div>
             <div class="doctor-degree">BDS, FICOI</div>
-            <div class="doctor-role">Founder & Chief Dental Surgeon<br>Experienced Dental Implantologist</div>
+            <div class="doctor-role">Founder &amp; Chief Dental Surgeon<br>Implantologist &amp; <span style="display:inline-block;background:rgba(232,108,44,0.15);color:var(--dental-orange);border:1px solid rgba(232,108,44,0.3);padding:1px 9px;border-radius:30px;font-size:0.7rem;font-weight:700;letter-spacing:0.3px;vertical-align:middle;">RCT Specialist</span></div>
           </div>
         </div>
         <div class="doctor-card-body">
-          <div class="doctor-exp-badge">⭐ 30+ Years Experience</div>
+          <div class="doctor-exp-badge" style="background:rgba(232,108,44,0.1);color:var(--dental-orange);border-color:rgba(232,108,44,0.25);">⭐ 30+ Years Experience</div>
           <div class="doctor-highlights">
-            <div class="doctor-highlight">Founder of Dr. Reddy's Dental & Eye Care Centre</div>
+            <div class="doctor-highlight">Founder of Dr. Reddy's Dental &amp; Eye Care Centre</div>
             <div class="doctor-highlight">Fellowship in Implantology — Malaysia (FICOI)</div>
-            <div class="doctor-highlight">Specialist in Osstem World-Renowned Implants</div>
-            <div class="doctor-highlight">Expert in Advanced Esthetic Dentistry & Smile Design</div>
-            <div class="doctor-highlight">Digital Impression with Intra Oral Scanners</div>
+            <div class="doctor-highlight">Expert in Root Canal Treatment &amp; RCT Retreatment</div>
+            <div class="doctor-highlight">Specialist in Dental Surgery — Minor &amp; Major Procedures</div>
+            <div class="doctor-highlight">Emergency Dental Care &amp; Advanced Esthetic Dentistry</div>
           </div>
+          <div class="doctor-specialist-pills">
+            <span class="doctor-specialist-pill" style="background:rgba(232,108,44,0.08);color:var(--dental-orange);border-color:rgba(232,108,44,0.2);">🦷 Dental Implants</span>
+            <span class="doctor-specialist-pill" style="background:rgba(232,108,44,0.08);color:var(--dental-orange);border-color:rgba(232,108,44,0.2);">🔬 Root Canal Specialist</span>
+            <span class="doctor-specialist-pill" style="background:rgba(232,108,44,0.08);color:var(--dental-orange);border-color:rgba(232,108,44,0.2);">⚕️ Dental Surgery</span>
+            <span class="doctor-specialist-pill" style="background:rgba(232,108,44,0.08);color:var(--dental-orange);border-color:rgba(232,108,44,0.2);">🚨 Emergency Care</span>
+          </div>
+          <div class="doctor-reg-badge">🏥 BDS, FICOI &nbsp;|&nbsp; 30+ Years Practice</div>
           <div style="margin-top:18px;">
             <button class="service-card-btn" onclick="event.stopPropagation();openDoctorProfile('sudhakar')" style="width:100%;justify-content:center;background:rgba(232,108,44,0.1);color:var(--dental-orange);">👤 View Full Profile →</button>
           </div>
@@ -3944,12 +4003,14 @@ footer {
             <div class="doctor-highlight">Consultant Ophthalmic &amp; <span class="doctor-orbit-badge">Orbit Surgeon</span></div>
             <div class="doctor-highlight">Specialist in Cataract, Orbit &amp; <span class="doctor-adv-badge">Advanced Eye Surgeries</span></div>
             <div class="doctor-highlight">Expert in World-Class PHACO Surgery — Alcon Legion System</div>
-            <div class="doctor-highlight">Advanced Orbit &amp; Anterior Segment Surgery</div>
+            <div class="doctor-highlight">Pediatric Eye Care, Retina Screening &amp; Eye Donation Centre</div>
           </div>
           <div class="doctor-specialist-pills">
             <span class="doctor-specialist-pill">👁 Cataract Surgery</span>
             <span class="doctor-specialist-pill orbit">🎯 Orbit Surgery</span>
-            <span class="doctor-specialist-pill adv">✦ Advanced Eye Surgeries</span>
+            <span class="doctor-specialist-pill adv">✦ PHACO Surgery</span>
+            <span class="doctor-specialist-pill adv">🔬 Advanced Eye Surgery</span>
+            <span class="doctor-specialist-pill">🧒 Pediatric Eye Care</span>
           </div>
           <div class="doctor-reg-badge">🏥 Reg. No: 64058 &nbsp;|&nbsp; MCI Registered</div>
           <div style="margin-top:18px;">
@@ -4839,6 +4900,14 @@ footer {
         <div class="gallery-overlay"><div class="gallery-label">⚙️ Alcon Legion – World-Class Phaco</div></div>
       </div>
 
+      <div class="gallery-item" data-cat="equipment">
+        <img src="images/gallery/alcon-legion-phaco-karaikal.webp"
+             alt="ALCON LEGION advanced cataract surgery system at Dr Reddy's Dental &amp; Eye Care Centre Karaikal"
+             loading="lazy" width="1024" height="1536">
+        <div class="gallery-cat-badge">Equipment</div>
+        <div class="gallery-overlay"><div class="gallery-label">🌟 Alcon Legion PHACO System – Karaikal</div></div>
+      </div>
+
     </div>
 
     <script>
@@ -5331,6 +5400,7 @@ footer {
             <div class="ct-label">Address</div>
             <div class="ct-value">No 24, Singaravelar Salai, PK Salai</div>
             <div class="ct-sub">Karaikal – 609 602, Tamil Nadu</div>
+            <a href="https://maps.app.goo.gl/zeUFUajuZyZpbcCj6" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;margin-top:7px;font-size:0.75rem;font-weight:700;color:var(--blue);text-decoration:none;">🗺️ Get Directions →</a>
           </div>
         </div>
         <div class="contact-item">
@@ -5352,7 +5422,7 @@ footer {
         <!-- Map embed placeholder -->
         <div style="margin-top:10px;border-radius:16px;overflow:hidden;border:1px solid var(--sky-light);">
           <iframe
-            src="https://www.google.com/maps?q=No+24+Singaravelar+Salai+PK+Salai+Karaikal+Tamil+Nadu+609602&output=embed" title="Dr. Reddys Dental Eye Care Centre Karaikal Location Map"
+            src="https://www.google.com/maps?q=Dr+Reddy%27s+Dental+centre&ftid=0x3baab9de9d4c8f79:0xd24f0b15d03c4dd5&output=embed" title="Dr. Reddy's Dental Centre Karaikal – Google Maps Location"
             width="100%" height="220" style="border:0;display:block;" allowfullscreen=""
             loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
@@ -5485,6 +5555,7 @@ footer {
           <div class="footer-contact-text"><strong>Mon – Sat:</strong> 9 AM – 8 PM<br>Emergency: 24 x 7</div>
         </div>
         <a href="#appointment" style="display:inline-block;margin-top:14px;padding:10px 24px;background:linear-gradient(135deg,var(--blue),var(--blue-deep));color:white;border-radius:50px;font-size:0.8rem;font-weight:700;">📅 Book Appointment</a>
+        <a href="https://maps.app.goo.gl/zeUFUajuZyZpbcCj6" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;margin-left:8px;padding:10px 24px;background:rgba(255,255,255,0.1);color:white;border-radius:50px;font-size:0.8rem;font-weight:700;border:1px solid rgba(255,255,255,0.25);">📍 Get Directions</a>
       </div>
     </div>
   </div>
@@ -6136,7 +6207,7 @@ const doctorProfiles = {
   sudhakar: {
     name: 'Dr. M. V. Sudhakar Reddy',
     degree: 'BDS · FICOI',
-    role: 'Founder & Chief Dental Surgeon · Experienced Dental Implantologist',
+    role: 'Founder & Chief Dental Surgeon · Implantologist & RCT Specialist',
     avatarLetter: 'S',
     avatarClass: 'dental',
     heroBg: 'dental-bg',
@@ -6155,14 +6226,14 @@ const doctorProfiles = {
 <br><br>
 Dr. Reddy earned his Bachelor of Dental Surgery (BDS) and subsequently completed his prestigious <strong>Fellowship in Implantology from Malaysia (FICOI)</strong> — one of the most respected international fellowships in dental implantology. This fellowship equipped him with cutting-edge techniques in full-mouth rehabilitation and implant-supported prosthetics that are on par with global centres of excellence.
 <br><br>
-He is a specialist in <strong>Osstem World-Renowned Implants</strong> — the same implant system used by leading dental institutions globally — and is trained in digital dentistry using Intra Oral Scanners for precision digital impressions. His passion for esthetic dentistry has made Dr. Reddy's the most trusted destination for smile transformation in the region.`,
+He is equally recognised as an expert in <strong>Root Canal Treatment and Root Canal Retreatment</strong> — regularly performing advanced endodontic procedures for complex cases. As a specialist in Dental Surgery (both minor and major procedures), Dr. Reddy also provides <strong>Emergency Dental Care</strong> for acute conditions. His passion for esthetic dentistry has made Dr. Reddy's the most trusted destination for smile transformation and comprehensive dental care in the Karaikal region.`,
     expertise: [
       'Dental Implantology & Full Mouth Rehabilitation',
-      'Osstem Implant System — Single & Multiple Units',
+      'Root Canal Treatment & Root Canal Retreatment',
       'Advanced Esthetic Dentistry & Smile Designing',
+      'Dental Surgery — Minor & Major Procedures',
+      'Emergency Dental Care & Acute Management',
       'Digital Impression with Intra Oral Scanners',
-      'Oral & Maxillofacial Procedures',
-      'Root Canal Treatment & Complex Endodontics',
       'Prosthodontics — Crowns, Bridges, Dentures',
       'Orthodontics Management & Coordination'
     ],
@@ -6170,11 +6241,11 @@ He is a specialist in <strong>Osstem World-Renowned Implants</strong> — the sa
       'BDS — Bachelor of Dental Surgery',
       'FICOI — Fellowship of International Congress of Oral Implantologists, Malaysia',
       '30+ Years Active Clinical Practice',
-      'Certified Osstem Implant Surgeon',
-      'Digital Dentistry & Intraoral Scanner Training',
+      'Specialist in Dental Implantology',
+      'Expert in Root Canal Treatment & Retreatment',
       'Advanced Esthetic Dentistry Continuing Education'
     ],
-    specialties: ['Dental Implants', 'Smile Designing', 'Osstem Implants', 'Root Canal', 'Esthetic Dentistry', 'Prosthodontics', 'FICOI Fellowship', 'Oral Surgery'],
+    specialties: ['Dental Implants', 'Root Canal Specialist', 'Dental Surgery', 'Emergency Care', 'Smile Designing', 'Esthetic Dentistry', 'Prosthodontics', 'FICOI Fellowship'],
     specialtyClass: 'dental',
     ctaLabel: 'Book a Consultation with Dr. Reddy',
     ctaClass: 'dental'
@@ -6200,7 +6271,7 @@ He is a specialist in <strong>Osstem World-Renowned Implants</strong> — the sa
 <br><br>
 Dr. Kamalapriya's clinical training includes distinguished stints at <strong>Aravind Eye Hospital, Puducherry</strong> and <strong>Lions Eye Hospital, Vandampalai, Tiruvarur</strong> — institutions renowned for world-class ophthalmic care. She completed her advanced <strong>Phacoemulsification Fellowship at Narayana Nethralaya, Bangalore</strong> — India's premier eye care institution — where she mastered laser cataract surgery techniques.
 <br><br>
-She brings 24×7 emergency ophthalmic care to Karaikal, manages complex cataract surgeries, diabetic retinopathy screenings, pediatric eye care including ROP screening for newborns, and operates a dedicated Eye Donation & Collection Centre that serves the entire Karaikal region.`,
+She brings 24×7 emergency ophthalmic care to Karaikal, performs complex cataract surgeries and advanced orbit surgeries, conducts diabetic retinopathy screenings, manages pediatric eye care including ROP screening for newborns, and operates a dedicated Eye Donation &amp; Collection Centre that serves the entire Karaikal region.`,
     expertise: [
       'Phacoemulsification (Laser Cataract Surgery)',
       'Anterior Segment & Corneal Surgery',
