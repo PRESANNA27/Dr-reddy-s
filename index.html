@@ -2684,6 +2684,48 @@ footer {
   .nav-links { display: none; }
   .nav-phase-toggle { display: none; }
   .hamburger { display: flex; }
+
+  /* ── Mobile Navbar Overlap Fix ──────────────────────────────────────────
+     Prevents logo/title from colliding with the Book Now button + hamburger.
+     Keeps the exact same premium design — only fixes flex sizing on mobile.
+  ──────────────────────────────────────────────────────────────────────── */
+  #navbar {
+    padding: 0 4%;
+    gap: 8px;
+  }
+  .nav-logo {
+    flex: 1 1 auto;
+    min-width: 0;
+    gap: 8px;
+    overflow: hidden;
+  }
+  .nav-logo img {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+  }
+  .nav-logo-text {
+    min-width: 0;
+    overflow: hidden;
+  }
+  .nav-logo-text .clinic-name {
+    font-size: 0.78rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .nav-logo-text .clinic-sub {
+    font-size: 0.58rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .nav-cta {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    font-size: 0.76rem;
+    white-space: nowrap;
+  }
   .hero-content { padding-top: 100px; }
   .hero-stats { gap: 20px; }
   section { padding: 60px 5%; }
@@ -2803,6 +2845,13 @@ footer {
 }
 
 @media (max-width: 480px) {
+  /* ── Extra-small navbar: compress further without overlap ── */
+  #navbar { padding: 0 3%; height: 64px; gap: 6px; }
+  .nav-logo img { width: 32px; height: 32px; }
+  .nav-logo-text .clinic-name { font-size: 0.72rem; }
+  .nav-logo-text .clinic-sub { display: none; }  /* hide subtitle on tiny phones */
+  .nav-cta { padding: 7px 13px; font-size: 0.72rem; }
+
   .hero-title { font-size: 2rem; }
   .hero-buttons { flex-direction: column; }
   .btn-primary, .btn-secondary, .btn-emergency { width: 100%; justify-content: center; }
@@ -3875,7 +3924,7 @@ footer {
   <a href="#prevention">💡 Prevention Tips</a>
   <a href="#why-us">⭐ Why Choose Us</a>
   <a href="#gallery">🖼 Gallery</a>
-  <a href="#appointment">📅 Book Appointment</a>
+  <a href="#appointment" data-open-appointment>📅 Book Appointment</a>
   <a href="tel:+919894591195" style="color:#27ae60;font-weight:700;margin-top:10px;">📞 +91 98945 91195</a>
   <!-- Mobile Mode Toggle -->
   <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--sky-light);">
@@ -3917,7 +3966,7 @@ footer {
       <button class="phase-btn all active" onclick="switchPhase('both')">✦ All</button>
       <button class="phase-btn eye" onclick="switchPhase('eye')">👁 Eye</button>
     </div>
-    <a href="#appointment" class="nav-cta">Book Now</a>
+    <a href="#appointment" class="nav-cta" data-open-appointment>Book Now</a>
     <button class="hamburger" onclick="openMobileNav()">
       <span></span><span></span><span></span>
     </button>
@@ -3976,7 +4025,7 @@ footer {
         </div>
       </div>
       <div class="hero-buttons">
-        <a href="#appointment" class="btn-primary"><span>📅 Book Appointment</span></a>
+        <a href="#appointment" class="btn-primary" data-open-appointment><span>📅 Book Appointment</span></a>
         <a href="#dental-services" class="btn-secondary" onclick="switchPhase('dental')">🦷 Dental Services</a>
         <a href="tel:+919894591195" class="btn-emergency">
           <span class="emergency-dot"></span> Emergency Call
@@ -5319,7 +5368,7 @@ footer {
         <div style="font-size:2rem;margin-bottom:12px;">🏆</div>
         <h3 style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:white;margin-bottom:8px;">Why Families Travel to Us</h3>
         <p style="font-size:0.82rem;color:rgba(255,255,255,0.85);line-height:1.6;">International fellowship training, Osstem implants, Phaco cataract surgery, ZEISS optical, Humphrey Field Analyzer, Fundus Camera, B-Scan Ultrasound, and 24×7 emergency care — all available in one superspeciality centre in Karaikal.</p>
-        <a href="#appointment" style="display:inline-block;margin-top:14px;padding:9px 22px;background:white;color:var(--blue);border-radius:50px;font-size:0.78rem;font-weight:700;">Book Appointment →</a>
+        <a href="#appointment" data-open-appointment style="display:inline-block;margin-top:14px;padding:9px 22px;background:white;color:var(--blue);border-radius:50px;font-size:0.78rem;font-weight:700;">Book Appointment →</a>
       </div>
     </div>
 
@@ -5477,7 +5526,7 @@ footer {
       <p style="font-size:0.88rem;color:var(--text-light);margin-bottom:18px;">Still have questions? Our team is available 24×7 for all enquiries.</p>
       <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
         <a href="tel:+919894591195" style="padding:12px 28px;background:linear-gradient(135deg,#27ae60,#229954);color:white;border-radius:50px;font-size:0.85rem;font-weight:700;text-decoration:none;">📞 Call Us Now</a>
-        <a href="#appointment" style="padding:12px 28px;background:linear-gradient(135deg,var(--blue),var(--blue-deep));color:white;border-radius:50px;font-size:0.85rem;font-weight:700;text-decoration:none;">📅 Schedule Eye Specialist Appointment</a>
+        <a href="#appointment" data-open-appointment style="padding:12px 28px;background:linear-gradient(135deg,var(--blue),var(--blue-deep));color:white;border-radius:50px;font-size:0.85rem;font-weight:700;text-decoration:none;">📅 Schedule Eye Specialist Appointment</a>
         <a href="https://wa.me/919894591195" target="_blank" style="padding:12px 28px;background:linear-gradient(135deg,#25D366,#128C7E);color:white;border-radius:50px;font-size:0.85rem;font-weight:700;text-decoration:none;">💬 WhatsApp Us</a>
       </div>
     </div>
@@ -5662,7 +5711,7 @@ footer {
           <span class="footer-contact-icon">⏰</span>
           <div class="footer-contact-text"><strong>Mon – Sat:</strong> 9 AM – 8 PM<br>Emergency: 24 x 7</div>
         </div>
-        <a href="#appointment" style="display:inline-block;margin-top:14px;padding:10px 24px;background:linear-gradient(135deg,var(--blue),var(--blue-deep));color:white;border-radius:50px;font-size:0.8rem;font-weight:700;">📅 Book Appointment</a>
+        <a href="#appointment" data-open-appointment style="display:inline-block;margin-top:14px;padding:10px 24px;background:linear-gradient(135deg,var(--blue),var(--blue-deep));color:white;border-radius:50px;font-size:0.8rem;font-weight:700;">📅 Book Appointment</a>
         <a href="https://maps.app.goo.gl/zeUFUajuZyZpbcCj6" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;margin-left:8px;padding:10px 24px;background:rgba(255,255,255,0.1);color:white;border-radius:50px;font-size:0.8rem;font-weight:700;border:1px solid rgba(255,255,255,0.25);">📍 Get Directions</a>
       </div>
     </div>
@@ -5810,12 +5859,21 @@ footer {
 function openMobileNav() {
   document.getElementById('mobileNav').classList.add('open');
   document.getElementById('mobileOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  /* Use unified lock so appointment popup can coexist cleanly */
+  if (window._lockBodyScroll) {
+    window._lockBodyScroll();
+  } else {
+    document.body.style.overflow = 'hidden';
+  }
 }
 function closeMobileNav() {
   document.getElementById('mobileNav').classList.remove('open');
   document.getElementById('mobileOverlay').classList.remove('open');
-  document.body.style.overflow = '';
+  if (window._unlockBodyScroll) {
+    window._unlockBodyScroll();
+  } else {
+    document.body.style.overflow = '';
+  }
 }
 
 // ---- PHASE TOGGLE ----
@@ -6290,17 +6348,17 @@ function openModal(serviceKey) {
       <div class="modal-col-title ${colTitleClass}" style="margin-top:20px;">❓ FAQs</div>
       <div class="modal-faq">${faqsHTML}</div>
       <div style="margin-top:18px;">
-        <a href="#appointment" onclick="closeModal()" class="service-card-btn ${isEye ? 'eye-btn' : ''}" style="display:inline-flex;width:100%;justify-content:center;">📅 Book This Treatment →</a>
+        <a href="#appointment" onclick="window._closeModalKeepLock ? (window._closeModalKeepLock(closeModal), openAppointmentModal()) : (closeModal(), openAppointmentModal()); return false;" class="service-card-btn ${isEye ? 'eye-btn' : ''}" style="display:inline-flex;width:100%;justify-content:center;">📅 Book This Treatment →</a>
       </div>
     </div>
   `;
   document.getElementById('serviceModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  if (window._lockBodyScroll) { window._lockBodyScroll(); } else { document.body.style.overflow = 'hidden'; }
 }
 
 function closeModal() {
   document.getElementById('serviceModal').classList.remove('open');
-  document.body.style.overflow = '';
+  if (window._unlockBodyScroll) { window._unlockBodyScroll(); } else { document.body.style.overflow = ''; }
 }
 function closeModalOnOverlay(e) {
   if (e.target === document.getElementById('serviceModal')) closeModal();
@@ -6580,7 +6638,7 @@ function buildDoctorProfileHTML(data) {
       <div class="dp-specialties">${specialtiesHTML}</div>
       <div class="dp-cta">
         <span style="font-size:0.88rem;color:var(--text-light);">Ready to consult with this expert?</span>
-        <a href="#appointment" onclick="closeDoctorProfile()" class="dp-cta-btn ${data.ctaClass}">📅 ${data.ctaLabel}</a>
+        <a href="#appointment" onclick="window._closeModalKeepLock ? (window._closeModalKeepLock(closeDoctorProfile), openAppointmentModal()) : (closeDoctorProfile(), openAppointmentModal()); return false;" class="dp-cta-btn ${data.ctaClass}">📅 ${data.ctaLabel}</a>
       </div>
     </div>
   `;
@@ -6646,7 +6704,7 @@ function buildConsultantProfileHTML(data) {
       <div class="dp-specialties">${specialtiesHTML}</div>
       <div class="dp-cta">
         <span style="font-size:0.88rem;color:var(--text-light);">Consult this specialist at Dr. Reddy's</span>
-        <a href="#appointment" onclick="closeConsultantProfile()" class="dp-cta-btn blue">📅 ${data.ctaLabel}</a>
+        <a href="#appointment" onclick="window._closeModalKeepLock ? (window._closeModalKeepLock(closeConsultantProfile), openAppointmentModal()) : (closeConsultantProfile(), openAppointmentModal()); return false;" class="dp-cta-btn blue">📅 ${data.ctaLabel}</a>
       </div>
     </div>
   `;
@@ -6657,12 +6715,12 @@ function openDoctorProfile(key) {
   if (!data) return;
   document.getElementById('doctorProfileBox').innerHTML = buildDoctorProfileHTML(data);
   document.getElementById('doctorProfileOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  if (window._lockBodyScroll) { window._lockBodyScroll(); } else { document.body.style.overflow = 'hidden'; }
 }
 
 function closeDoctorProfile() {
   document.getElementById('doctorProfileOverlay').classList.remove('open');
-  document.body.style.overflow = '';
+  if (window._unlockBodyScroll) { window._unlockBodyScroll(); } else { document.body.style.overflow = ''; }
 }
 
 function closeDoctorProfileOnOverlay(e) {
@@ -6674,12 +6732,12 @@ function openConsultantProfile(key) {
   if (!data) return;
   document.getElementById('consultantProfileBox').innerHTML = buildConsultantProfileHTML(data);
   document.getElementById('consultantProfileOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  if (window._lockBodyScroll) { window._lockBodyScroll(); } else { document.body.style.overflow = 'hidden'; }
 }
 
 function closeConsultantProfile() {
   document.getElementById('consultantProfileOverlay').classList.remove('open');
-  document.body.style.overflow = '';
+  if (window._unlockBodyScroll) { window._unlockBodyScroll(); } else { document.body.style.overflow = ''; }
 }
 
 function closeConsultantProfileOnOverlay(e) {
@@ -7189,8 +7247,8 @@ document.addEventListener('keydown', e => {
 <!-- ── Popup HTML ── -->
 <div id="ap-overlay" role="dialog" aria-modal="true" aria-labelledby="ap-title-id">
 
-  <!-- Backdrop click to close -->
-  <div style="position:absolute;inset:0;z-index:0;" onclick="closeApptPopup()"></div>
+  <!-- Backdrop click to close — uses closeApptPopup() via the overlay listener -->
+  <div id="ap-backdrop" style="position:absolute;inset:0;z-index:0;" aria-hidden="true"></div>
 
   <div id="ap-card">
 
@@ -7355,19 +7413,47 @@ document.addEventListener('keydown', e => {
   /* ── iOS Safari scroll lock helpers ──
      position:fixed is the only reliable way to lock scroll on iOS.
      We store/restore scrollY so the page doesn't jump.  */
-  var _scrollY = 0;
+  /* ── Unified scroll lock ─────────────────────────────────────────────────
+     Reference-counted so service/doctor/appointment modals all coexist.
+     Uses position:fixed + stored scrollY (only reliable iOS Safari method).
+     _scrollLockY is captured ONLY when going from 0→1 lock (first modal open)
+     so rapid re-open after close never overwrites it with pageYOffset=0.
+  ─────────────────────────────────────────────────────────────────────── */
+  var _scrollLockCount = 0;
+  var _scrollLockY     = 0;
 
   function lockBodyScroll() {
-    _scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
-    document.body.style.top     = '-' + _scrollY + 'px';
-    document.body.classList.add('modal-open');
+    if (_scrollLockCount === 0) {
+      /* Capture real scroll before fixing position */
+      _scrollLockY = window.pageYOffset
+                     || document.documentElement.scrollTop
+                     || 0;
+      document.body.style.position = 'fixed';
+      document.body.style.top      = '-' + _scrollLockY + 'px';
+      document.body.style.width    = '100%';
+      document.body.style.overflow = 'hidden';
+      document.body.classList.add('modal-open');
+    }
+    _scrollLockCount++;
   }
 
   function unlockBodyScroll() {
-    document.body.classList.remove('modal-open');
-    document.body.style.top = '';
-    window.scrollTo(0, _scrollY);
+    if (_scrollLockCount <= 0) return;
+    _scrollLockCount--;
+    if (_scrollLockCount === 0) {
+      var y = _scrollLockY; /* capture before resetting */
+      document.body.classList.remove('modal-open');
+      document.body.style.position = '';
+      document.body.style.top      = '';
+      document.body.style.width    = '';
+      document.body.style.overflow = '';
+      window.scrollTo(0, y);
+    }
   }
+
+  /* Aliases used by openMobileNav / service modal / doctor modal */
+  window._lockBodyScroll   = lockBodyScroll;
+  window._unlockBodyScroll = unlockBodyScroll;
 
   /* ── Helpers ── */
   function $(id) { return document.getElementById(id); }
@@ -7469,27 +7555,39 @@ document.addEventListener('keydown', e => {
     var overlay = $('ap-overlay');
     if (!overlay) return;
 
+    /* ── Guard: already open and not in the middle of closing → bail ── */
+    if (overlay.classList.contains('ap-show') && !_closeTimer) return;
+
     /* Cancel any in-flight close animation before showing again */
     if (_closeTimer) {
       clearTimeout(_closeTimer);
       _closeTimer = null;
       overlay.style.display = '';
+      /* Scroll lock was already acquired; no need to re-lock */
     }
 
-    /* Step 1 — make element renderable (opacity still 0 from base CSS) */
-    overlay.classList.remove('ap-anim'); /* reset in case of rapid open/close */
-    overlay.classList.add('ap-show');    /* CSS: display:flex */
+    /* Reset form to input view on every fresh open */
+    var formView = $('ap-form-view');
+    var success  = $('ap-success');
+    if (formView) formView.style.display = '';
+    if (success)  success.style.display  = 'none';
 
-    /* Step 2 — double rAF lets the browser commit the display:flex repaint
-       at opacity:0, THEN ap-anim triggers the opacity:1 transition */
+    /* Step 1 — make renderable (opacity:0 while display transitions) */
+    overlay.classList.remove('ap-anim');
+    overlay.classList.add('ap-show');
+    overlay.style.display = '';
+
+    /* Step 2 — lock scroll IMMEDIATELY so iOS doesn't bleed background scroll */
+    lockBodyScroll();
+
+    /* Step 3 — double rAF: commit display:flex paint at opacity:0, THEN
+       trigger the opacity:1 fade-in transition */
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
         overlay.classList.add('ap-anim');
-        lockBodyScroll(); /* iOS-safe scroll lock */
       });
     });
 
-    /* Mark shown AFTER we commit to displaying it */
     try { sessionStorage.setItem(STORAGE_KEY, '1'); } catch (e) {}
   }
 
@@ -7498,36 +7596,100 @@ document.addEventListener('keydown', e => {
     var overlay = $('ap-overlay');
     if (!overlay) return;
 
-    /* Start fade-out by removing ap-anim (opacity → 0 via CSS transition) */
+    /* Guard: only close if currently shown */
+    if (!overlay.classList.contains('ap-show')) return;
+
+    /* ── UNLOCK SCROLL IMMEDIATELY ──────────────────────────────────────────
+       This is critical: if we wait 450ms the body stays position:fixed and
+       the page appears frozen/unresponsive. Unlock now, let CSS fade happen
+       visually while the page is already scrollable again.
+    ─────────────────────────────────────────────────────────────────────── */
+    unlockBodyScroll();
+
+    /* Trigger CSS fade-out (opacity → 0 over ~400ms) */
     overlay.classList.remove('ap-anim');
 
-    /* After transition completes, fully hide and reset */
+    /* After the CSS transition completes, fully hide the element */
     _closeTimer = setTimeout(function () {
       _closeTimer = null;
       overlay.classList.remove('ap-show');
-      overlay.style.display = 'none'; /* belt-and-suspenders */
-      unlockBodyScroll(); /* restore scroll — iOS safe */
-      /* Reset form back to input view for next open */
-      var formView = $('ap-form-view');
-      var success  = $('ap-success');
-      if (formView) formView.style.display = '';
-      if (success)  success.style.display  = 'none';
-    }, 450);
+      overlay.style.display = 'none';
+    }, 430);
   };
 
   /* ── Global aliases as specified ── */
   window.openAppointmentModal  = openApptPopup;
   window.closeAppointmentModal = window.closeApptPopup;
 
-  /* ── Overlay click-to-close (click backdrop) ── */
+  /* ── Helper: close a modal WITHOUT releasing the scroll lock ─────────────
+     Used by "close service/doctor modal → open appointment" chains so the
+     lock count stays at 1 (no flash / incorrect scrollY restoration).
+  ─────────────────────────────────────────────────────────────────────── */
+  window._closeModalKeepLock = function (closeFn) {
+    /* Temporarily inflate the lock count so closeFn's pop doesn't hit 0 */
+    _scrollLockCount++;
+    closeFn();
+    /* The count is now back where it was (closeFn decremented, we incremented) */
+  };
+
+  /* ── Centralized "Book Now" binding ──────────────────────────────────────
+     Click-only binding — avoids the touchend+click double-fire bug on mobile.
+     On all modern mobile browsers (iOS Safari, Android Chrome, Samsung Internet,
+     Brave) the click event fires reliably within 300ms of tap. No touchend
+     needed — and adding it would cause the handler to run TWICE per tap.
+  ──────────────────────────────────────────────────────────────────────── */
+  function _openApptHandler(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    openApptPopup();
+  }
+
+  /* Track which elements are already bound to avoid duplicate listeners */
+  var _boundApptEls = new WeakSet();
+
+  function _bindAppointmentTriggers() {
+    var sel = '[data-open-appointment], a[href="#appointment"]';
+    document.querySelectorAll(sel).forEach(function (el) {
+      if (_boundApptEls.has(el)) return; /* already wired — skip */
+      el.addEventListener('click', _openApptHandler, { passive: false });
+      _boundApptEls.add(el);
+    });
+  }
+
+  /* Initial bind */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', _bindAppointmentTriggers);
+  } else {
+    _bindAppointmentTriggers();
+  }
+
+  /* Re-bind when new DOM nodes appear (doctor/service modal injection).
+     Use a debounced MutationObserver to avoid thrashing. */
+  var _bindDebounce = null;
+  if (typeof MutationObserver !== 'undefined') {
+    var _apptObserver = new MutationObserver(function () {
+      clearTimeout(_bindDebounce);
+      _bindDebounce = setTimeout(_bindAppointmentTriggers, 80);
+    });
+    _apptObserver.observe(document.body, { childList: true, subtree: true });
+  }
+
+  /* ── Overlay click-to-close ── */
   var overlay = $('ap-overlay');
   if (overlay) {
     overlay.addEventListener('click', function (e) {
-      if (e.target === overlay) window.closeApptPopup();
+      /* Close if click lands on the overlay itself OR the backdrop div */
+      var backdrop = document.getElementById('ap-backdrop');
+      if (e.target === overlay || e.target === backdrop) {
+        window.closeApptPopup();
+      }
     });
-    /* Prevent touch scroll from bubbling through overlay on iOS */
+    /* Prevent background scroll bleeding through overlay on iOS */
     overlay.addEventListener('touchmove', function (e) {
-      if (e.target === overlay) e.preventDefault();
+      /* Allow scroll inside the card; block it on the backdrop */
+      var card = document.getElementById('ap-card');
+      if (card && card.contains(e.target)) return; /* let card scroll */
+      e.preventDefault();
     }, { passive: false });
   }
 
@@ -7545,6 +7707,34 @@ document.addEventListener('keydown', e => {
     if (el) el.addEventListener('input', apUpdateWALink);
   });
 
+  /* ── Safety net: restore scroll state on page show (bfcache / back-nav) ── */
+  window.addEventListener('pageshow', function (e) {
+    /* If page is restored from bfcache and body is still locked — fix it */
+    if (document.body.classList.contains('modal-open')) {
+      var ov = $('ap-overlay');
+      var stillOpen = ov && ov.classList.contains('ap-show');
+      if (!stillOpen) {
+        /* Body was locked but modal isn't showing — force unlock */
+        _scrollLockCount = 1; /* reset to 1 so popScrollLock goes to 0 */
+        unlockBodyScroll();
+      }
+    }
+  });
+
+  /* ── Safety net: if page becomes hidden while popup open, ensure on return
+     the body scroll is sane (handles iOS Safari background-tab resume) ── */
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'visible') {
+      var ov = $('ap-overlay');
+      var isOpen = ov && ov.classList.contains('ap-show');
+      /* If modal is not open but body is locked, release the lock */
+      if (!isOpen && document.body.classList.contains('modal-open')) {
+        _scrollLockCount = 1;
+        unlockBodyScroll();
+      }
+    }
+  });
+
   /* ── Init ── */
   apSetMinDate();
   apInitGender();
@@ -7555,6 +7745,7 @@ document.addEventListener('keydown', e => {
      and only skips if sessionStorage already has the key (once-per-session).
      _popupScheduled flag prevents double-scheduling on fast browsers. */
   var _popupScheduled = false;
+  var _autoPopupTimer = null;
 
   function schedulePopup() {
     if (_popupScheduled) return;
@@ -7564,11 +7755,17 @@ document.addEventListener('keydown', e => {
     try { shown = !!sessionStorage.getItem(STORAGE_KEY); } catch (e) {}
 
     if (!shown) {
-      window.setTimeout(function () {
+      /* Clear any previous timer (safety net against double-scheduling) */
+      if (_autoPopupTimer) { clearTimeout(_autoPopupTimer); }
+
+      _autoPopupTimer = window.setTimeout(function () {
+        _autoPopupTimer = null;
         var ov = $('ap-overlay');
-        /* Only open if not already open and no other modal is visible */
-        if (ov && !ov.classList.contains('ap-show')) {
-          /* Extra guard: don't open if user is already interacting with the page */
+        /* Only auto-open if:
+           1. overlay exists
+           2. not already open
+           3. no other scroll lock is active (user opened another modal) */
+        if (ov && !ov.classList.contains('ap-show') && _scrollLockCount === 0) {
           openApptPopup();
         }
       }, DELAY_MS);
@@ -7578,7 +7775,6 @@ document.addEventListener('keydown', e => {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', schedulePopup);
   } else {
-    /* DOM already ready (script at end of body) — schedule immediately */
     schedulePopup();
   }
 
