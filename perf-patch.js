@@ -1,24 +1,21 @@
 /* ══════════════════════════════════════════════════════════
-   DR. REDDY'S — PERFORMANCE PATCH v1 (JS)
+   DR. REDDY'S — PERFORMANCE PATCH v1 + CLOSE-BUTTON FIX
    Fixes: scroll jank, IO memory leak, touch flicker,
-          FAQ reflow, image CLS, modal GPU priming
-   DO NOT EDIT — generated patch file
+          FAQ reflow, image CLS, modal GPU priming,
+          service modal close button on iOS/Android
    ══════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
 
-  /* ── Helpers ─────────────────────────────────────────── */
   var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-  var isMobile = window.innerWidth <= 768 || isTouch;
 
-  /* ── 1. Wrap FAQ answers for grid-template-rows trick ───
-     The CSS patch uses display:grid on .faq-answer so the
-     0fr→1fr animation works. This requires a direct child
-     element with overflow:hidden. We inject .faq-inner.    */
+  /* ── 1. Wrap FAQ answers for CSS grid accordion trick ───
+     perf-patch.css uses display:grid + grid-template-rows:0fr/1fr
+     on .faq-answer. This requires a direct child with overflow:hidden.
+     We inject .faq-inner as that wrapper.                   */
   function wrapFaqAnswers(root) {
-    root = root || document;
-    root.querySelectorAll('.faq-answer').forEach(function (el) {
-      if (el.querySelector('.faq-inner')) return; // already wrapped
+    (root || document).querySelectorAll('.faq-answer').forEach(function (el) {
+      if (el.querySelector('.faq-inner')) return;
       var inner = document.createElement('div');
       inner.className = 'faq-inner';
       while (el.firstChild) inner.appendChild(el.firstChild);
@@ -26,25 +23,48 @@
     });
   }
 
-  /* ── 2. Patch openModal: wrap FAQ + prime GPU layer ───── */
+  /* ── 2. Direct touchend fallback on service modal close ──
+     Defense-in-depth against the iOS Safari / Android Chrome
+     hit-test bug: even if the synthesised click is swallowed
+     by a compositor layer quirk, touchend fires directly.
+     Uses touchend (not touchstart) so a scroll doesn't fire it.
+     stopPropagation prevents overlay's closeModalOnOverlay.
+     preventDefault stops the 300ms synthetic click double-fire. */
+  function bindModalCloseTouch() {
+    var closeBtn = document.querySelector('#serviceModal .modal-close');
+    if (!closeBtn || closeBtn._perf_touch_bound) return;
+    closeBtn.addEventListener('touchend', function (e) {
+      e.stopPropagation();
+      e.preventDefault();
+      if (window.closeModal) window.closeModal();
+    }, { passive: false });
+    closeBtn._perf_touch_bound = true;
+  }
+
+  /* ── 3. Patch openModal: FAQ wrap + GPU prime + close fix  */
   function patchOpenModal() {
     var orig = window.openModal;
     if (!orig || orig._perf_patched) return;
     window.openModal = function (serviceKey) {
       orig(serviceKey);
+      /* Wrap dynamically-injected FAQ answers */
       var modal = document.getElementById('serviceModal');
       if (modal) wrapFaqAnswers(modal);
-      // Prime GPU layer so transition doesn't flash
+      /* Prime will-change for 450ms during entry animation,
+         then clear. Static will-change on overflow-y:auto breaks
+         position:sticky touch hit-testing on iOS Safari. */
       var box = document.getElementById('modalBox');
       if (box) {
         box.style.willChange = 'transform, opacity';
         setTimeout(function () { if (box) box.style.willChange = 'auto'; }, 450);
       }
+      /* Ensure close button touch handler is bound */
+      bindModalCloseTouch();
     };
     window.openModal._perf_patched = true;
   }
 
-  /* ── 3. Patch openDoctorProfile: wrap FAQ + prime GPU ── */
+  /* ── 4. Patch openDoctorProfile: FAQ wrap + GPU prime ─── */
   function patchOpenDoctorProfile() {
     var orig = window.openDoctorProfile;
     if (!orig || orig._perf_patched) return;
@@ -61,15 +81,14 @@
     window.openDoctorProfile._perf_patched = true;
   }
 
-  /* ── 4. Lazy-image smooth fade-in (prevents sudden pop) ─ */
+  /* ── 5. Lazy-image smooth fade-in (prevents sudden pop) ─ */
   function applyImageFadeIn() {
     document.querySelectorAll('img[loading="lazy"]').forEach(function (img) {
-      if (img.complete && img.naturalWidth > 0) return; // already loaded
+      if (img.complete && img.naturalWidth > 0) return;
       img.style.opacity = '0';
       img.style.transition = 'opacity 0.35s ease';
       img.addEventListener('load', function () {
         img.style.opacity = '';
-        // Remove inline transition after it fires once so CSS controls it
         setTimeout(function () { img.style.transition = ''; }, 400);
       }, { once: true, passive: true });
       img.addEventListener('error', function () {
@@ -79,63 +98,56 @@
     });
   }
 
-  /* ── 5. Remove tap highlight on touch targets ─────────── */
+  /* ── 6. Remove tap highlight on touch targets ─────────── */
   function applyTouchOptimizations() {
     if (!isTouch) return;
-    var sel = [
-      '.service-card', '.service-pill', '.doctor-card',
-      '.why-card', '.consultant-card', '.btn-primary',
-      '.btn-secondary', '.btn-emergency', '.service-card-btn',
-      '.gallery-item', '.gallery-tab', '.faq-question',
-      '.service-pill', '.mode-switcher-btn', '.float-mode-btn'
-    ].join(', ');
+    var sel = '.service-card, .service-pill, .doctor-card, .why-card, ' +
+              '.consultant-card, .btn-primary, .btn-secondary, .btn-emergency, ' +
+              '.service-card-btn, .gallery-item, .gallery-tab, .faq-question, ' +
+              '.mode-switcher-btn, .float-mode-btn';
     document.querySelectorAll(sel).forEach(function (el) {
       el.style.webkitTapHighlightColor = 'transparent';
     });
   }
 
-  /* ── 6. Release will-change after animations complete ─── */
+  /* ── 7. Release will-change after fade-up completes ───── */
   function bindWillChangeRelease() {
     document.addEventListener('transitionend', function (e) {
       var el = e.target;
-      if (!el || !el.classList) return;
-      if (el.classList.contains('fade-up') && el.classList.contains('visible')) {
+      if (el && el.classList &&
+          el.classList.contains('fade-up') &&
+          el.classList.contains('visible')) {
         el.style.willChange = 'auto';
       }
     }, { passive: true });
   }
 
-  /* ── 7. Passive touchmove on overlay backdrops ─────────
-     Prevents background page scroll bleeding through modal
-     on iOS Safari (body position:fixed doesn't always work). */
+  /* ── 8. Touchmove block on #ap-overlay backdrop only ────
+     #serviceModal is intentionally excluded — adding passive:false
+     touchmove there caused subtle event interference on Android
+     Chrome. The body position:fixed scroll-lock handles iOS bleed. */
   function bindOverlayTouchBlock() {
-    ['serviceModal', 'ap-overlay'].forEach(function (id) {
-      var overlay = document.getElementById(id);
-      if (!overlay) return;
-      overlay.addEventListener('touchmove', function (e) {
-        // Allow scroll only inside the scrollable card/box
-        var scrollable = overlay.querySelector('.modal-box, #ap-card, .doctor-profile-box');
-        if (scrollable && scrollable.contains(e.target)) return;
-        e.preventDefault();
-      }, { passive: false });
-    });
+    var apOverlay = document.getElementById('ap-overlay');
+    if (!apOverlay) return;
+    apOverlay.addEventListener('touchmove', function (e) {
+      var card = document.getElementById('ap-card');
+      if (card && card.contains(e.target)) return;
+      e.preventDefault();
+    }, { passive: false });
   }
 
-  /* ── 8. Disable click delay on touch ──────────────────── */
+  /* ── 9. touch-action: manipulation removes 300ms tap delay */
   function removeTouchDelay() {
     if (!isTouch) return;
-    // touch-action: manipulation removes 300ms tap delay
-    var clickables = document.querySelectorAll(
-      'button, a, .service-card, .service-pill, ' +
-      '.doctor-card, .consultant-card, .gallery-tab, ' +
-      '.faq-question, .why-card, .mode-switcher-btn'
-    );
-    clickables.forEach(function (el) {
+    var sel = 'button, a, .service-card, .service-pill, .doctor-card, ' +
+              '.consultant-card, .gallery-tab, .faq-question, ' +
+              '.why-card, .mode-switcher-btn';
+    document.querySelectorAll(sel).forEach(function (el) {
       el.style.touchAction = 'manipulation';
     });
   }
 
-  /* ── 9. Main init ────────────────────────────────────── */
+  /* ── 10. Main init ───────────────────────────────────── */
   function init() {
     wrapFaqAnswers();
     patchOpenModal();
@@ -145,6 +157,7 @@
     bindWillChangeRelease();
     bindOverlayTouchBlock();
     removeTouchDelay();
+    bindModalCloseTouch();
   }
 
   if (document.readyState === 'loading') {
