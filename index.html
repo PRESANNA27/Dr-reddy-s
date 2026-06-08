@@ -539,8 +539,8 @@ body:has(button:hover) #cursor-outer {
   animation: emergencyPulse 3s ease infinite;
 }
 @keyframes emergencyPulse {
-  0%, 100% { box-shadow: 0 6px 20px rgba(255,71,87,0.4); }
-  50% { box-shadow: 0 6px 30px rgba(255,71,87,0.7); }
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.04); opacity: 0.88; }
 }
 .emergency-dot {
   width: 8px; height: 8px;
@@ -4083,7 +4083,7 @@ footer {
         <div class="hero-badge-24">
           <span class="emergency-dot"></span> 24/7 EMERGENCY · +91 98945 91195
         </div>
-        <img class="hero-main-image" src="images/entrance.jpg" alt="Best Dental and Eye Hospital in Karaikal - Dr Reddys Entrance" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&q=80'">
+        <img class="hero-main-image" src="images/entrance.jpg" alt="Best Dental and Eye Hospital in Karaikal - Dr Reddys Entrance" loading="lazy" width="600" height="450" onerror="this.src='https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&q=80'">
         <div class="hero-float-card dental-card">
           <div class="float-icon dental">🦷</div>
           <div class="float-text">
@@ -6034,13 +6034,19 @@ document.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('mode-both');
 });
 
-// Show float switcher on scroll past hero
+// Show float switcher on scroll past hero — passive + rAF throttled
+let _scrollTicking = false;
 window.addEventListener('scroll', () => {
-  const nav = document.getElementById('navbar');
-  nav.classList.toggle('scrolled', window.scrollY > 60);
-  const fms = document.getElementById('floatModeSwitcher');
-  if (fms) fms.classList.toggle('visible', window.scrollY > 400);
-});
+  if (_scrollTicking) return;
+  _scrollTicking = true;
+  requestAnimationFrame(() => {
+    const nav = document.getElementById('navbar');
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 60);
+    const fms = document.getElementById('floatModeSwitcher');
+    if (fms) fms.classList.toggle('visible', window.scrollY > 400);
+    _scrollTicking = false;
+  });
+}, { passive: true });
 
 // ---- PREVENTION TABS ----
 function switchPrevTab(type, btn) {
@@ -6078,16 +6084,25 @@ function toggleFaq(el) {
   if (!isOpen) item.classList.add('open');
 }
 
-// ---- SCROLL ANIMATIONS ----
+// ---- SCROLL ANIMATIONS — unobserve after trigger to stop wasting cycles ----
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
+      observer.unobserve(entry.target); // stop watching — animation only fires once
     }
   });
-}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
 
-document.querySelectorAll('.fade-up, .stagger-children').forEach(el => observer.observe(el));
+document.querySelectorAll('.fade-up, .stagger-children').forEach(el => {
+  // Already in viewport on load? Reveal immediately, no observer needed
+  const r = el.getBoundingClientRect();
+  if (r.top < window.innerHeight && r.bottom > 0) {
+    el.classList.add('visible');
+  } else {
+    observer.observe(el);
+  }
+});
 
 // ---- SERVICE MODAL DATA ----
 const modalData = {
@@ -6409,7 +6424,7 @@ function openModal(serviceKey) {
       <button class="faq-question" onclick="toggleFaq(this)">
         ${f.q} <span class="faq-chevron">▼</span>
       </button>
-      <div class="faq-answer">${f.a}</div>
+      <div class="faq-answer"><div class="faq-inner">${f.a}</div></div>
     </div>
   `).join('');
 
@@ -7925,5 +7940,8 @@ document.addEventListener('keydown', e => {
 
 })();
 </script>
+  <!-- Performance Patch: GPU acceleration, mobile optimisations, scroll fixes -->
+  <link rel="stylesheet" href="perf-patch.css">
+  <script src="perf-patch.js" defer></script>
 </body>
 </html>
