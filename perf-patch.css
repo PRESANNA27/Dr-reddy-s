@@ -1,12 +1,20 @@
 /* ══════════════════════════════════════════════════════════
-   DR. REDDY'S — PERFORMANCE PATCH v1
-   Fixes: flickering, repaint, layout shift, mobile jank
-   DO NOT EDIT — generated patch file
+   DR. REDDY'S — PERFORMANCE PATCH v1 + CLOSE-BUTTON FIX
+   Fixes: flickering, repaint, layout shift, mobile jank,
+          service modal close button on iOS/Android
    ══════════════════════════════════════════════════════════ */
 
-/* ── 1. GPU-promote compositing layers ──────────────────── */
+/* ── 1. GPU-promote compositing layers ──────────────────────
+   .modal-box is intentionally EXCLUDED.
+   Applying transform:translateZ(0) to an overflow-y:auto
+   container creates a GPU compositor layer. On iOS Safari and
+   Android Chrome, position:sticky children inside that layer
+   have their touch hit-test area frozen at the original DOM
+   position — not the visual sticky position. After scroll, the
+   close button appears at the top but taps hit content below.
+   Fix: never GPU-promote .modal-box.                         */
 #navbar,
-.modal-overlay, .modal-box,
+.modal-overlay,
 .doctor-profile-overlay, .doctor-profile-box,
 #ap-overlay, #ap-card {
   -webkit-transform: translateZ(0);
@@ -22,8 +30,7 @@
 
 /* ── 2. Fix "transition: all" — biggest repaint source ──────
    "all" animates box-shadow, backdrop-filter, color etc.
-   at every hover. Replaced with specific composited props.  */
-
+   on every hover, triggering paint on every frame.           */
 #navbar {
   transition: height 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease !important;
 }
@@ -71,7 +78,9 @@
   transition: color 0.2s ease, background-color 0.2s ease !important;
 }
 
-/* ── 3. Modal transitions — specific props only ─────────── */
+/* ── 3. Modal transitions — specific props only ─────────────
+   No static will-change on .modal-box (see Block 1 comment).
+   JS sets will-change for 450ms during animation only.       */
 .modal-overlay {
   transition: opacity 0.28s ease !important;
   will-change: opacity;
@@ -79,7 +88,6 @@
 .modal-box {
   transition: transform 0.28s cubic-bezier(0.25,0.46,0.45,0.94),
               opacity 0.28s ease !important;
-  will-change: transform, opacity;
 }
 .modal-overlay:not(.open) .modal-box { opacity: 0; }
 .modal-overlay.open .modal-box { opacity: 1; }
@@ -92,13 +100,8 @@
   transition: transform 0.28s cubic-bezier(0.25,0.46,0.45,0.94) !important;
   will-change: transform;
 }
-
-#ap-overlay {
-  will-change: opacity;
-}
-#ap-card {
-  will-change: transform, opacity;
-}
+#ap-overlay { will-change: opacity; }
+#ap-card    { will-change: transform, opacity; }
 
 /* ── 4. Fade-up: GPU promote, release after visible ──────── */
 .fade-up {
@@ -106,17 +109,15 @@
   backface-visibility: hidden;
   will-change: opacity, transform;
 }
-.fade-up.visible {
-  will-change: auto;
-}
+.fade-up.visible { will-change: auto; }
 .stagger-children > * {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
-/* ── 5. FAQ accordion — grid trick: NO layout reflow ────────
+/* ── 5. FAQ accordion — grid trick (no layout reflow) ───────
    Replaces max-height transition (causes layout per frame).
-   Requires .faq-inner wrapper (added by perf-patch.js).     */
+   Requires .faq-inner wrapper added by perf-patch.js.        */
 .faq-answer {
   display: grid !important;
   grid-template-rows: 0fr !important;
@@ -132,38 +133,29 @@
   color: var(--text-light);
   line-height: 1.6;
 }
-.faq-item.open .faq-answer {
-  grid-template-rows: 1fr !important;
-}
-.faq-item.open .faq-answer .faq-inner {
-  padding-bottom: 12px;
-}
+.faq-item.open .faq-answer          { grid-template-rows: 1fr !important; }
+.faq-item.open .faq-answer .faq-inner { padding-bottom: 12px; }
 
-/* ── 6. Contain sections → limit repaint propagation ───── */
+/* ── 6. Contain sections — limit repaint scope ───────────── */
 #dental-services, #eye-services,
-#gallery, #reviews,
-#consultants, #prevention {
+#gallery, #reviews, #consultants, #prevention {
   contain: layout style;
 }
 
-/* ── 7. Service card images: prevent CLS flash ──────────── */
+/* ── 7. Service card images: prevent CLS ────────────────── */
 .service-card-img {
   aspect-ratio: 700 / 467;
   overflow: hidden;
   background: var(--sky-light);
 }
 .service-card-img img {
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease !important;
 }
-/* Lazy-load fade-in (JS sets opacity:0 before load) */
-img[loading="lazy"] {
-  min-height: 1px;
-}
+img[loading="lazy"] { min-height: 1px; }
 
-/* ── 8. Gallery: promote to compositor ──────────────────── */
+/* ── 8. Gallery: GPU promote ────────────────────────────── */
 .gallery-item {
   overflow: hidden;
   -webkit-backface-visibility: hidden;
@@ -180,92 +172,139 @@ img[loading="lazy"] {
   #cursor-outer { mix-blend-mode: normal !important; }
 }
 
-/* ── 10. MOBILE (≤768px / touch) — maximum savings ─────────
-   backdrop-filter is the #1 GPU drain on budget phones.     */
+/* ── 10. MOBILE — maximum savings ───────────────────────── */
 @media (max-width: 768px), (hover: none), (pointer: coarse) {
 
-  /* Kill ALL backdrop-filter */
-  #navbar,
-  .modal-overlay,
-  .doctor-profile-overlay,
-  #ap-overlay,
-  .mobile-nav,
-  .review-card,
-  .hero-badge {
+  /* Kill ALL backdrop-filter (biggest GPU drain on phones) */
+  #navbar, .modal-overlay, .doctor-profile-overlay,
+  #ap-overlay, .mobile-nav, .review-card, .hero-badge {
     -webkit-backdrop-filter: none !important;
     backdrop-filter: none !important;
   }
-  #navbar {
-    background: rgba(255,255,255,0.98) !important;
-  }
-  .modal-overlay {
-    background: rgba(10,29,50,0.88) !important;
-  }
-  .doctor-profile-overlay {
-    background: rgba(5,15,30,0.90) !important;
-  }
-  #ap-overlay {
-    background: rgba(10,29,50,0.88) !important;
-  }
+  #navbar              { background: rgba(255,255,255,0.98) !important; }
+  .modal-overlay       { background: rgba(10,29,50,0.88) !important; }
+  .doctor-profile-overlay { background: rgba(5,15,30,0.90) !important; }
+  #ap-overlay          { background: rgba(10,29,50,0.88) !important; }
 
-  /* Disable hover transforms on touch — eliminates tap-flicker */
-  .service-card:hover,
-  .doctor-card:hover,
-  .consultant-card:hover,
-  .why-card:hover {
+  /* Disable hover transforms on touch */
+  .service-card:hover, .doctor-card:hover,
+  .consultant-card:hover, .why-card:hover {
     transform: translateZ(0) !important;
     box-shadow: var(--shadow-card) !important;
   }
 
-  /* Hero floating shapes: biggest idle CPU drain — kill on mobile */
+  /* Kill idle CPU animations */
   .hero-shape { display: none !important; }
-  /* Hero float cards: animated constantly, disable */
   .hero-float-card { animation: none !important; transform: translateZ(0) !important; }
 
-  /* Faster fade-in on mobile */
-  .fade-up {
-    transition: opacity 0.25s ease, transform 0.25s ease !important;
-  }
-  .stagger-children > * {
-    transition-duration: 0.25s !important;
-  }
+  /* Faster reveal animations */
+  .fade-up { transition: opacity 0.25s ease, transform 0.25s ease !important; }
+  .stagger-children > * { transition-duration: 0.25s !important; }
 
-  /* Remove tap highlight on interactive elements */
-  .service-card, .service-pill, .doctor-card,
-  .consultant-card, .why-card, .btn-primary,
-  .btn-secondary, .btn-emergency, .service-card-btn,
-  .gallery-item, .gallery-tab, .faq-question {
+  /* Remove tap highlight */
+  .service-card, .service-pill, .doctor-card, .consultant-card,
+  .why-card, .btn-primary, .btn-secondary, .btn-emergency,
+  .service-card-btn, .gallery-item, .gallery-tab, .faq-question {
     -webkit-tap-highlight-color: transparent;
   }
 
   /* Simplify shadows */
-  .modal-box           { box-shadow: 0 8px 32px rgba(10,29,50,0.25) !important; }
-  #ap-card             { box-shadow: 0 4px 24px rgba(10,29,50,0.2)  !important; }
-  .doctor-profile-box  { box-shadow: 0 8px 32px rgba(10,29,50,0.25) !important; }
+  .modal-box          { box-shadow: 0 8px 32px rgba(10,29,50,0.25) !important; }
+  #ap-card            { box-shadow: 0 4px 24px rgba(10,29,50,0.2)  !important; }
+  .doctor-profile-box { box-shadow: 0 8px 32px rgba(10,29,50,0.25) !important; }
 
   /* Shorter transitions on mobile */
   .modal-overlay, .modal-box,
   .doctor-profile-overlay, .doctor-profile-box,
-  #ap-overlay, #ap-card {
-    transition-duration: 0.22s !important;
-  }
+  #ap-overlay, #ap-card { transition-duration: 0.22s !important; }
 
-  /* Kill mix-blend-mode — causes compositor fallback on mobile */
+  /* Kill mix-blend-mode */
   * { mix-blend-mode: normal !important; }
 
   /* Disable marquee hover-pause (no hover on touch) */
-  .marquee-track:hover  { animation-play-state: running !important; }
-  .services-track:hover { animation-play-state: running !important; }
-  .reviews-track:hover  { animation-play-state: running !important; }
+  .marquee-track:hover, .services-track:hover,
+  .reviews-track:hover { animation-play-state: running !important; }
 }
 
-/* ── 11. Extra-small (≤480px) ───────────────────────────── */
+/* ── 11. Extra-small ≤480px ─────────────────────────────── */
 @media (max-width: 480px) {
   .fade-up { transition: opacity 0.2s ease, transform 0.2s ease !important; }
-  /* Disable section contain-intrinsic-size to let height auto-calculate */
-  #dental-services, #eye-services,
-  #gallery, #reviews,
-  #consultants, #prevention {
-    contain-intrinsic-size: unset;
+  #dental-services, #eye-services, #gallery,
+  #reviews, #consultants, #prevention { contain-intrinsic-size: unset; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   12. MODAL CLOSE BUTTON — mobile touch hit-test fix
+   ═══════════════════════════════════════════════════════════
+
+   BUG 1 (PRIMARY — iOS Safari & Android Chrome):
+   transform:translateZ(0) on .modal-box (overflow-y:auto) =
+   GPU compositor layer. position:sticky elements inside a
+   composited scrollable container have their touch hit-test
+   area frozen at the original pre-scroll DOM position. After
+   scrolling, the button looks correct visually but tapping it
+   misses — the click lands on the content below.
+   FIX → .modal-box removed from GPU block above.
+
+   BUG 2 (SECONDARY):
+   Static will-change:transform on .modal-box kept the GPU
+   layer permanent even after animation ended.
+   FIX → will-change removed from .modal-box CSS rule.
+          JS sets it for 450ms during animation only.
+
+   BUG 3 (TERTIARY — nested sticky):
+   .modal-close was position:sticky INSIDE .modal-header which
+   is also position:sticky. Nested sticky is unreliable — the
+   child sticks relative to a different scroll ancestor on some
+   Android Chrome builds, causing z-index / hit-area drift.
+   FIX → .modal-close overridden to position:relative below.
+
+   BUG 4 (QUATERNARY — Android WebView cursor):
+   cursor:none on button elements causes some Android WebViews
+   to skip pointer event routing for the element.
+   FIX → cursor:pointer forced on .modal-close.               */
+
+/* Global close button fixes (all screen sizes) */
+.modal-close {
+  cursor: pointer !important;      /* Bug 4: Android hit-test */
+  position: relative !important;   /* Bug 3: un-nest from sticky */
+  pointer-events: auto !important;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation !important;
+  isolation: isolate;              /* own stacking context */
+  z-index: 10 !important;
+}
+
+/* Mobile-specific close button hardening */
+@media (max-width: 768px), (hover: none), (pointer: coarse) {
+  /* Sticky header carries the button — no separate sticky needed */
+  .modal-header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 50 !important;        /* raised: must beat modal column content */
+    background: white !important;
+  }
+  /* 48×48 minimum touch target (Google & Apple guidelines) */
+  .modal-close {
+    min-width: 48px !important;
+    min-height: 48px !important;
+    width: 48px !important;
+    height: 48px !important;
+    padding: 0 !important;
+    box-shadow: 0 2px 12px rgba(10,29,50,0.18) !important;
+    /* Explicit tap area expansion via negative margins if needed */
+    margin: 0 !important;
+  }
+  /* Doctor profile close button — same treatment */
+  .dp-close {
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent;
+    min-width: 48px !important;
+    min-height: 48px !important;
+    isolation: isolate;
+    z-index: 10 !important;
+    position: relative !important;
   }
 }
